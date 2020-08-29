@@ -1,0 +1,13 @@
+[package]
+name = "sofiza"
+description = "SFZ format parser (WIP)"
+version = "0.0.0"
+edition = "2018"
+authors = ["José Luis Cruz <joseluis@andamira.net>"]
+license = "MIT/Apache-2.0"
+include = [
+    "src/*.rs",
+    "Cargo.toml",
+]
+
+[dependencies]
