@@ -1,0 +1,22 @@
+[alias]
+
+# BUILD
+b = "build"
+br = "build --release"
+bq = "build --quiet"
+
+# RUN
+r = "run"
+rr = "run --release"
+rq = "run --quiet"
+re = "run --example"
+rqe = "run --quiet --example"
+req = "rqe"
+
+# DOC
+d = "doc --no-deps"
+do = "doc --no-deps --open"
+
+# TEST
+t = "test -- --test-threads 1 --nocapture"
+#t = "test -- --nocapture"

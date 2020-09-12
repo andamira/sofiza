@@ -1,13 +1,30 @@
 [package]
 name = "sofiza"
-description = "SFZ format parser (WIP)"
-version = "0.0.0"
+description = "SFZ format parser"
+version = "0.1.0"
 edition = "2018"
 authors = ["José Luis Cruz <joseluis@andamira.net>"]
+repository = "https://github.com/andamira/sofiza"
 license = "MIT/Apache-2.0"
 include = [
     "src/*.rs",
+    "src/sfz/*.rs",
+    "src/sfz/opcodes/*.rs",
+    "src/sfz/opcodes/data/*.txt",
     "Cargo.toml",
 ]
+categories = ["parser-implementations", "multimedia::audio"]
+keywords = ["parser", "audio", "virtual", "music", "instrument"]
 
 [dependencies]
+logos = "0.11.4"
+regex = "1"
+
+shellexpand = "1.1.1"
+path-slash = "0.1.3"
+
+phf = { version = "0.8", features = ["macros"] }
+
+# change for the `!` type when it stabilizes:
+# https://github.com/rust-lang/rust/issues/35121
+never = "0.1.0"
