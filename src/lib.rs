@@ -1,12 +1,10 @@
 pub mod sfz;
 
 pub use sfz::{
+    group::Group,
+    headers::Header,
     instrument::Instrument,
-
-    // headers::Header,
-    // group::Group,
-    // region::Region,
     opcodes::Opcode,
-    //
-    // types::{loop_mode, trigger, fil_type, UndefinedInteger, UndefinedUnsignedInteger, UnknownType},
+    region::Region,
+    types::{fil_type, loop_mode, trigger},
 };

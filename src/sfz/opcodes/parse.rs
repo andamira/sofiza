@@ -1,14 +1,12 @@
 use std::path::PathBuf;
 
-use logos::{Logos, Lexer};
+use logos::{Lexer, Logos};
 use regex::Regex;
 
-use crate::sfz::{Header, Opcode, utils};
-use crate::sfz::types::{MAX_SAMPLE_RATE, fil_type, loop_mode, trigger};
-
+use crate::sfz::types::{fil_type, loop_mode, trigger, MAX_SAMPLE_RATE};
+use crate::sfz::{utils, Header, Opcode};
 
 impl Opcode {
-
     /// Receives an opcode name with numeric parameters, and returns the canonical
     /// opcode name (with its numeric parameters changed back to N,X,Y letters),
     /// alongside a tuple with up to 3 optional parameters
@@ -26,7 +24,6 @@ impl Opcode {
     ///     ("lfoN_eqXgain_onccY", vec![111, 44, 55])
     ///
     pub(crate) fn parse_name(name: &str) -> (String, Vec<u8>) {
-
         let mut new_name = String::new(); // the new constructed name
         let mut params = Vec::new(); // to store the found parameters
 
@@ -39,58 +36,58 @@ impl Opcode {
 
         // Tries to find numeric parameters embedded in the name
         let lex_numbers = OpcodeParameter::lexer(&name);
-        for (n, span) in lex_numbers.spanned() { match &n {
+        for (n, span) in lex_numbers.spanned() {
+            match &n {
+                // If a parameter is found
+                OpcodeParameter::Parameter(p) => {
+                    // constructs the new name of the opcode,
+                    // with the numeric parameters being substituted by
+                    // the N, X, Y chars, in that order.
 
-            // If a parameter is found
-            OpcodeParameter::Parameter(p) => {
+                    let split_idx = span.start; // the index of current parameter in original name
 
-                // constructs the new name of the opcode,
-                // with the numeric parameters being substituted by
-                // the N, X, Y chars, in that order.
+                    let (first, last) = name.split_at(split_idx);
+                    remainder = last[span.end - span.start..].to_string();
 
-                let split_idx = span.start; // the index of current parameter in original name
+                    // first handle the special case of 4 opcodes with an "NN" parameter:
+                    // (varNN_mod, varNN_onccX, varNN_curveccX, varNN_target)
+                    if par_num == 0 && Regex::new(r"^var").unwrap().is_match(&name) {
+                        new_name += &format!("{}NN", &first[previous_span_end..]);
 
-                let (first, last) = name.split_at(split_idx);
-                remainder = last[span.end-span.start..].to_string();
-                
-                // first handle the special case of 4 opcodes with an "NN" parameter:
-                // (varNN_mod, varNN_onccX, varNN_curveccX, varNN_target)
-                if par_num == 0 && Regex::new(r"^var").unwrap().is_match(&name) {
-                    new_name += &format!("{}NN", &first[previous_span_end..]);
+                    // then handle the rest of the cases
+                    } else {
+                        new_name +=
+                            &format!("{}{}", &first[previous_span_end..], par_char[par_num]);
+                    }
 
-                // then handle the rest of the cases
-                } else {
-                    new_name += &format!("{}{}", &first[previous_span_end..], par_char[par_num]);
+                    //println!("{} ({})  remainder: {}", &new_name, previous_span_end, remainder); // DEBUG
+
+                    // TODO: check for numeric boundaries
+                    //
+                    // TODO NOTE
+                    // 1. all opcodes ending in ccN has N = 0..=127 (or ccX when N is already used)
+                    //  (except some sfz2 and aria extensions, see:
+                    //  https://sfzformat.com/extensions/midi_ccs
+                    //
+                    // 2. each of these has N = 1..=3 (and X = 0..=127)
+                    //   eqN_bw
+                    //   eqN_bwccX
+                    //   eqN_freq
+                    //   eqN_freqccX
+                    //   eqN_vel2freq
+                    //   eqN_gain
+                    //   eqN_gainccX
+                    //   eqN_vel2gain
+
+                    // Stores the numeric parameter
+                    params.push(*p as u8);
+
+                    par_num += 1;
+                    previous_span_end = span.end;
                 }
-
-                //println!("{} ({})  remainder: {}", &new_name, previous_span_end, remainder); // DEBUG
-
-                // TODO: check for numeric boundaries
-                //
-                // TODO NOTE
-                // 1. all opcodes ending in ccN has N = 0..=127 (or ccX when N is already used)
-                //  (except some sfz2 and aria extensions, see:
-                //  https://sfzformat.com/extensions/midi_ccs
-                //
-                // 2. each of these has N = 1..=3 (and X = 0..=127)
-                //   eqN_bw
-                //   eqN_bwccX
-                //   eqN_freq
-                //   eqN_freqccX
-                //   eqN_vel2freq
-                //   eqN_gain
-                //   eqN_gainccX
-                //   eqN_vel2gain
-
-
-                // Stores the numeric parameter
-                params.push(*p as u8);
-
-                par_num += 1;
-                previous_span_end = span.end;
-            },
-            _ => (),
-        }}
+                _ => (),
+            }
+        }
 
         // In case there where no opcode parameters, the opcode name is unchanged
         if par_num == 0 {
@@ -105,21 +102,19 @@ impl Opcode {
         return (new_name, params);
     }
 
-
     /// Replaces the opcode parameter letters for numbers, as they are really used,
     /// preparing them for testing the parsing.
     #[allow(dead_code)]
     pub(crate) fn numerize_pars(opcode: &str) -> String {
         let mut o_new;
 
-        o_new = Regex::new(r"Y").unwrap().replace(opcode, "33").to_string();  //  Y > 33
-        o_new = Regex::new(r"X").unwrap().replace(&o_new, "22").to_string();  //  X > 22
+        o_new = Regex::new(r"Y").unwrap().replace(opcode, "33").to_string(); //  Y > 33
+        o_new = Regex::new(r"X").unwrap().replace(&o_new, "22").to_string(); //  X > 22
         o_new = Regex::new(r"NN").unwrap().replace(&o_new, "11").to_string(); // NN > 11
-        o_new = Regex::new(r"N").unwrap().replace(&o_new, "11").to_string();  //  N > 11
+        o_new = Regex::new(r"N").unwrap().replace(&o_new, "11").to_string(); //  N > 11
 
         o_new
     }
-
 
     // IDEA:1 when some opcode is incorrect or the value is incorrect, or out of range
     // a warning should be printed with the information.
@@ -138,9 +133,9 @@ impl Opcode {
     // (thos opcodes can even be of a different different type in each version)
 
     pub(crate) fn parse_opcode(lex: &mut Lexer<SfzToken>) -> Option<Opcode> {
-    // TODO: return also the opcode name parameters
-    // pub(crate) fn parse_opcode(lex: &mut Lexer<SfzToken>)
-    //     -> (Option<Opcode>, Option<vec![u8]>) {
+        // TODO: return also the opcode name parameters
+        // pub(crate) fn parse_opcode(lex: &mut Lexer<SfzToken>)
+        //     -> (Option<Opcode>, Option<vec![u8]>) {
 
         let slice = lex.slice();
 
@@ -150,26 +145,39 @@ impl Opcode {
         let (opcode, values) = Opcode::parse_name(opcode);
 
         match (opcode.as_str(), values) {
-
             // TODO: test returning opcode name parameters
             ("eqN_bwccX", _) => utils::check_f32_between(value, -4., 4.).map(Opcode::eqN_bwccX),
 
-
             // v1
-
-            ("amp_veltrack", _) => utils::check_f32_between(value,-100., 100.).map(Opcode::amp_veltrack),
-            ("amp_random", _) => utils::check_f32_between(value,0., 24.).map(Opcode::amp_random),
-            ("ampeg_attack", _) => utils::check_f32_between(value, 0., 100.).map(Opcode::ampeg_attack),
+            ("amp_veltrack", _) => {
+                utils::check_f32_between(value, -100., 100.).map(Opcode::amp_veltrack)
+            }
+            ("amp_random", _) => utils::check_f32_between(value, 0., 24.).map(Opcode::amp_random),
+            ("ampeg_attack", _) => {
+                utils::check_f32_between(value, 0., 100.).map(Opcode::ampeg_attack)
+            }
             // NOTE: VPO: TODO: ampeg_attackcc1 (needs special parsing)
-            ("ampeg_attackccN", _) => utils::check_f32_between(value, 0., 100.).map(Opcode::ampeg_attackccN),
-            ("ampeg_decay", _) => utils::check_f32_between(value, 0., 100.).map(Opcode::ampeg_decay),
+            ("ampeg_attackccN", _) => {
+                utils::check_f32_between(value, 0., 100.).map(Opcode::ampeg_attackccN)
+            }
+            ("ampeg_decay", _) => {
+                utils::check_f32_between(value, 0., 100.).map(Opcode::ampeg_decay)
+            }
             ("ampeg_hold", _) => utils::check_f32_between(value, 0., 100.).map(Opcode::ampeg_hold),
-            ("ampeg_release", _) => utils::check_f32_between(value, 0., 100.).map(Opcode::ampeg_release),
-            ("ampeg_sustain", _) => utils::check_f32_between(value, 0., 100.).map(Opcode::ampeg_sustain),
+            ("ampeg_release", _) => {
+                utils::check_f32_between(value, 0., 100.).map(Opcode::ampeg_release)
+            }
+            ("ampeg_sustain", _) => {
+                utils::check_f32_between(value, 0., 100.).map(Opcode::ampeg_sustain)
+            }
             // NOTE: upper range is SampleRate/2 (it should be checked when sample rate is known)
-            ("cutoff", _) => utils::check_f32_between(value, 0., MAX_SAMPLE_RATE).map(Opcode::cutoff),
+            ("cutoff", _) => {
+                utils::check_f32_between(value, 0., MAX_SAMPLE_RATE).map(Opcode::cutoff)
+            }
             ("fil_type", _) => fil_type::from_str(value).map(Opcode::fil_type),
-            ("fil_veltrack", _) => utils::check_i16_between(value, -9600, 9600).map(Opcode::fil_veltrack),
+            ("fil_veltrack", _) => {
+                utils::check_i16_between(value, -9600, 9600).map(Opcode::fil_veltrack)
+            }
             // NOTE: hikey v2 accepts i8, from -1:
             ("hikey", _) => utils::check_u8_between(value, 0, 127).map(Opcode::hikey),
             ("hivel", _) => utils::check_u8_between(value, 0, 127).map(Opcode::hivel),
@@ -184,11 +192,19 @@ impl Opcode {
             ("on_loccN", _) => utils::check_i8_between(value, 0, 127).map(Opcode::on_loccN),
             ("on_hiccN", _) => utils::check_i8_between(value, 0, 127).map(Opcode::on_hiccN),
             ("pan", _) => utils::check_f32_between(value, 0., 100.).map(Opcode::pan),
-            ("pitch_keycenter", _) => utils::check_u8_between(value, 0, 127).map(Opcode::pitch_keycenter),
-            ("pitch_keytrack", _) => utils::check_i16_between(value, -1200, 1200).map(Opcode::pitch_keytrack),
-            ("pitch_random", _) => utils::check_u16_between(value, 0, 9600).map(Opcode::pitch_random),
+            ("pitch_keycenter", _) => {
+                utils::check_u8_between(value, 0, 127).map(Opcode::pitch_keycenter)
+            }
+            ("pitch_keytrack", _) => {
+                utils::check_i16_between(value, -1200, 1200).map(Opcode::pitch_keytrack)
+            }
+            ("pitch_random", _) => {
+                utils::check_u16_between(value, 0, 9600).map(Opcode::pitch_random)
+            }
             ("rt_decay", _) => utils::check_f32_between(value, 0., 200.).map(Opcode::rt_decay),
-            ("sample", _) => Some(Opcode::sample(PathBuf::from(utils::fix_path_separators(value)))),
+            ("sample", _) => Some(Opcode::sample(PathBuf::from(utils::fix_path_separators(
+                value,
+            )))),
             ("seq_lenght", _) => utils::check_u8_between(value, 1, 100).map(Opcode::seq_length),
             ("seq_position", _) => utils::check_u8_between(value, 1, 100).map(Opcode::seq_position),
             ("trigger", _) => trigger::from_str(value).map(Opcode::trigger),
@@ -202,31 +218,26 @@ impl Opcode {
             ("xfout_hivel", _) => utils::check_u8_between(value, 0, 127).map(Opcode::xfout_hivel),
             ("xfout_lovel", _) => utils::check_u8_between(value, 0, 127).map(Opcode::xfout_lovel),
 
-
             // v2
-
             ("sw_default", _) => utils::check_u8_between(value, 0, 127).map(Opcode::sw_default),
             ("default_path", _) => Some(Opcode::default_path(utils::fix_path_separators(value))),
 
-
             // aria
-
-            ("ampeg_dynamic", _) => utils::check_u8_between(value, 0, 127).map(Opcode::ampeg_dynamic),
+            ("ampeg_dynamic", _) => {
+                utils::check_u8_between(value, 0, 127).map(Opcode::ampeg_dynamic)
+            }
             ("group_label", _) => Some(Opcode::group_label(value.to_string())),
             ("sw_label", _) => Some(Opcode::sw_label(value.to_string())),
 
             _ => None,
         }
-
     }
 }
-
 
 /// Token for parsing SFZ format elements like headers and tokens
 ///
 #[derive(Logos, Debug, PartialEq)]
 pub(crate) enum SfzToken {
-
     /// Parses a Header
     ///
     #[regex("<[a-zA-Z]+>", Header::parse_header)]
@@ -250,16 +261,14 @@ pub(crate) enum SfzToken {
     Error,
 }
 
-
 /// Returns the correct parameters from an opcode name
-/// 
+///
 ///
 /// Some opcode names contains numbers that must not be interpreted as parameters.
 /// It makes sure to filter out false positives,
 /// as parameters,
 #[derive(Logos, Debug, PartialEq)]
 pub(crate) enum OpcodeParameter {
-
     /// Skip numbers that must not be recognized as parameters,
     /// since they are part of the opcode's name.
     ///
@@ -270,24 +279,25 @@ pub(crate) enum OpcodeParameter {
     ///
     // TODO: IMPROVE (should be {1,3}, range 0-¿127? CHECK)
     // #[regex("[0-9]{1,3}")] // ← constricted digit repetition
-    #[regex("[0-9]+", |lex| lex.slice().parse())] 
+    #[regex("[0-9]+", |lex| lex.slice().parse())]
     Parameter(u8),
 
     #[error]
     Error,
 }
 
-
 #[cfg(test)]
 mod tests_opcodes {
     use super::*;
     use logos::Logos;
 
-
     #[test]
     fn test_opcode_ampeg_attack() {
         let mut lex = SfzToken::lexer("ampeg_attack=0.001");
-        assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::ampeg_attack(0.001))));
+        assert_eq!(
+            lex.next(),
+            Some(SfzToken::Opcode(Opcode::ampeg_attack(0.001)))
+        );
     }
 
     #[test]
@@ -311,16 +321,23 @@ mod tests_opcodes {
     #[test]
     fn test_opcode_sample() {
         let mut lex = SfzToken::lexer("sample=MOHorn mute_A#1_v1_1.wav");
-        assert_eq!(lex.next(),
-            Some(SfzToken::Opcode(Opcode::sample(PathBuf::from("MOHorn mute_A#1_v1_1.wav")))));
+        assert_eq!(
+            lex.next(),
+            Some(SfzToken::Opcode(Opcode::sample(PathBuf::from(
+                "MOHorn mute_A#1_v1_1.wav"
+            ))))
+        );
 
         // The equal sign is also supported in the filename
         let mut lex = SfzToken::lexer("sample=equal_sign_=_doesn't_fail.wav");
-        assert_eq!(lex.next(),
-            Some(SfzToken::Opcode(Opcode::sample(PathBuf::from("equal_sign_=_doesn't_fail.wav")))));
+        assert_eq!(
+            lex.next(),
+            Some(SfzToken::Opcode(Opcode::sample(PathBuf::from(
+                "equal_sign_=_doesn't_fail.wav"
+            ))))
+        );
     }
 }
-
 
 #[cfg(test)]
 mod tests_token {
@@ -331,20 +348,25 @@ mod tests_token {
     #[test]
     fn test_sfz_simple() {
         let mut lex = SfzToken::lexer(
-"<region>
+            "<region>
 sample=MOHorn_mute_A#1_v1_1.wav
 lokey=46
 hikey=48
 pitch_keycenter=46
 lovel=0
 hivel=62
-volume=17");
+volume=17",
+        );
 
         assert_eq!(lex.next(), Some(SfzToken::Header(Header::Region)));
         assert_eq!(lex.span(), 0..8);
 
-        assert_eq!(lex.next(), Some(SfzToken::Opcode(
-                    Opcode::sample(PathBuf::from("MOHorn_mute_A#1_v1_1.wav")))));
+        assert_eq!(
+            lex.next(),
+            Some(SfzToken::Opcode(Opcode::sample(PathBuf::from(
+                "MOHorn_mute_A#1_v1_1.wav"
+            ))))
+        );
         assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::lokey(46))));
         // assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::hikey(48))));
         // assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::pitch_keycenter(46))));
@@ -354,7 +376,6 @@ volume=17");
     }
 }
 
-
 #[cfg(test)]
 mod tests_parameters {
 
@@ -362,7 +383,6 @@ mod tests_parameters {
 
     #[test]
     fn test_parse_all_opcodes() {
-
         // DATA
         //
         // [999] indicates the current number opcodes at 2020-09-11
@@ -373,23 +393,21 @@ mod tests_parameters {
         static OPCODES_SFZ_V2: &str = include_str!("data/opcodes-v2_166.txt");
         static OPCODES_SFZ_ARIA_EXT: &str = include_str!("data/opcodes-aria-extension_78.txt");
         static OPCODES_SFZ_CAKEWALK_V2: &str = include_str!("data/opcodes-cakewalk-v2_162.txt");
-        let opcodes_total = format!("{}{}{}{}",    // the list of all the opcodes
-            OPCODES_SFZ_V1,
-            OPCODES_SFZ_V2,
-            OPCODES_SFZ_ARIA_EXT,
-            OPCODES_SFZ_CAKEWALK_V2,
+        let opcodes_total = format!(
+            "{}{}{}{}", // the list of all the opcodes
+            OPCODES_SFZ_V1, OPCODES_SFZ_V2, OPCODES_SFZ_ARIA_EXT, OPCODES_SFZ_CAKEWALK_V2,
         );
-        let mut opcodes_params = String::new();    // …with any parameters
-        let mut opcodes_params_3 = String::new();  // …with 3 parameters
-        let mut opcodes_params_2 = String::new();  // …with 2 parameters
-        let mut opcodes_params_1 = String::new();  // …with 1 parameter
+        let mut opcodes_params = String::new(); // …with any parameters
+        let mut opcodes_params_3 = String::new(); // …with 3 parameters
+        let mut opcodes_params_2 = String::new(); // …with 2 parameters
+        let mut opcodes_params_1 = String::new(); // …with 1 parameter
         let mut opcodes_no_params = String::new(); // …with no parameters
 
-        let mut opcodes_total_count: u16 = 0;     // [590] the total number of opcodes
-        let mut opcodes_params_count: u16 = 0;    // [244] …with any parameters
-        let mut opcodes_params_3_count: u16 = 0;  //  [15] …with 3 parameters
-        let mut opcodes_params_2_count: u16 = 0;  //  [93] …with 2 parameters
-        let mut opcodes_params_1_count: u16 = 0;  // [136] …with 1 parameters
+        let mut opcodes_total_count: u16 = 0; // [590] the total number of opcodes
+        let mut opcodes_params_count: u16 = 0; // [244] …with any parameters
+        let mut opcodes_params_3_count: u16 = 0; //  [15] …with 3 parameters
+        let mut opcodes_params_2_count: u16 = 0; //  [93] …with 2 parameters
+        let mut opcodes_params_1_count: u16 = 0; // [136] …with 1 parameter
         let mut opcodes_no_params_count: u16 = 0; // [346] …with no parameters
 
         // Every opcode with parameters indicates them as uppercase N, X or Y,
@@ -410,7 +428,6 @@ mod tests_parameters {
                 opcodes_params = format!("{}\n{}", opcodes_params, o);
 
                 if re_par2.is_match(o) {
-
                     // opcodes with 3 parameters
                     if re_par3.is_match(o) {
                         opcodes_params_3_count += 1;
@@ -421,7 +438,6 @@ mod tests_parameters {
                         opcodes_params_2_count += 1;
                         opcodes_params_2 = format!("{}\n{}", opcodes_params_2, o);
                     }
-
 
                 // opcodes with only 1 parameter
                 } else {
@@ -453,10 +469,14 @@ mod tests_parameters {
         // );
 
         // Check the counting checks up
-        assert_eq!(opcodes_params_count,
-            opcodes_params_1_count + opcodes_params_2_count + opcodes_params_3_count);
-        assert_eq!(opcodes_total_count, opcodes_params_count + opcodes_no_params_count);
-
+        assert_eq!(
+            opcodes_params_count,
+            opcodes_params_1_count + opcodes_params_2_count + opcodes_params_3_count
+        );
+        assert_eq!(
+            opcodes_total_count,
+            opcodes_params_count + opcodes_no_params_count
+        );
 
         // TEST opcode parsing
 
@@ -465,7 +485,7 @@ mod tests_parameters {
             let o_new = Opcode::numerize_pars(&o);
             let (o_parsed, params) = Opcode::parse_name(&o_new);
             assert_eq!(&o, &o_parsed);
-            assert_eq!(params, vec![11,22,33]);
+            assert_eq!(params, vec![11, 22, 33]);
         }
 
         // Test parsing the opcodes with 2 parameters
@@ -473,7 +493,7 @@ mod tests_parameters {
             let o_new = Opcode::numerize_pars(&o);
             let (o_parsed, params) = Opcode::parse_name(&o_new);
             assert_eq!(&o, &o_parsed);
-            assert_eq!(params, vec![11,22]);
+            assert_eq!(params, vec![11, 22]);
         }
 
         // Test parsing the opcodes with 1 parameters

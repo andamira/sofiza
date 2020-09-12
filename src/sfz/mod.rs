@@ -4,9 +4,9 @@
 //! Multiple regions can be arranged in a group.
 //! Groups allow entering common parameters for multiple regions.
 
+pub mod group;
 pub mod headers;
 pub mod instrument;
-pub mod group;
 pub mod opcodes;
 pub mod region;
 

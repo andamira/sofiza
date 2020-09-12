@@ -3,7 +3,6 @@ use std::fmt::Debug;
 
 use crate::sfz::{Opcode, OpcodeMap};
 
-
 /// Groups allow entering common parameters for multiple regions.
 ///
 /// A group is defined with the <group> opcode, and the parameters enumerated
@@ -11,7 +10,7 @@ use crate::sfz::{Opcode, OpcodeMap};
 ///
 #[derive(Debug)]
 pub struct Group {
-    opcodes: OpcodeMap,  // these opcodes overwrites the defaults, and the inherited
+    opcodes: OpcodeMap, // these opcodes overwrites the defaults, and the inherited
     label: String,
 }
 
@@ -27,4 +26,3 @@ impl Group {
         self.opcodes.insert(o.str_name(), o.clone());
     }
 }
-

@@ -1,7 +1,10 @@
 use std::path::PathBuf;
 
-use crate::sfz::types::{fil_type, trigger, loop_mode, OpcodeType, UndefinedInteger, UndefinedUnsignedInteger, UnknownType};
 use crate::sfz::opcodes::defaults::OPCODE_DEFAULT;
+use crate::sfz::types::{
+    fil_type, loop_mode, trigger, OpcodeType, UndefinedInteger, UndefinedUnsignedInteger,
+    UnknownType,
+};
 
 /// Opcodes are special keywords which instruct the player
 /// on what, when and how to play a sample.
@@ -25,10 +28,8 @@ use crate::sfz::opcodes::defaults::OPCODE_DEFAULT;
 #[allow(non_camel_case_types)]
 #[derive(Debug, PartialEq, Clone)]
 pub enum Opcode {
-
     // sfz v1 opcodes -----------------------------------------------------------
     // https://sfzformat.com/misc/sfz2
-
     ///
     /// - range: 0 to u32::MAX
     /// - default: 0
@@ -1536,11 +1537,8 @@ pub enum Opcode {
     ///
     effect2(f32),
 
-
     // sfz v2 opcodes -----------------------------------------------------------
     // https://sfzformat.com/misc/sfz2
-
-
     ///
     /// - range: None
     /// - default: None
@@ -2869,11 +2867,8 @@ pub enum Opcode {
     ///
     r#type(String),
 
-
     // aria extension opcodes --------------------------------------------------
     // https://sfzformat.com/extensions/aria/
-
-
     ///
     /// - range: None
     /// - default: None
@@ -3505,11 +3500,8 @@ pub enum Opcode {
     ///
     vendor_specific(String),
 
-
     // Cakewalk SFZ v2 Opcodes -----------------------------------------------
     // https://sfzformat.com/misc/cakewalk
-
-
     ///
     /// - range: on, off, lpf_1p, hpf_1p, bpf_1p, brf_1p, apf_1p, lpf_2p, hpf_2p,
     ///   bpf_2p, brf_2p, pkf_2p, lpf_4p, hpf_4p, lpf_6p, hpf_6p, comb, pink
@@ -4806,14 +4798,11 @@ pub enum Opcode {
     /// - info: [oscillator_table_size](https://sfzformat.com/opcodes/oscillator_table_size)
     ///
     oscillator_table_size(UnknownType),
-
-
     // cakewalk extension opcodes -----------------------------------------------
     // https://sfzformat.com/extensions/cakewalk/
 }
 
 impl Opcode {
-
     /// Returns the default value of the current opcode
     ///
     pub fn default_value(&self) -> Option<OpcodeType> {

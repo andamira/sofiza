@@ -2,7 +2,6 @@ use logos::Lexer;
 
 use crate::sfz::SfzToken;
 
-
 /// SFZ files are subdivided into sections by headers.
 ///
 /// The global/group/region or global/master/group/region hierarchy contains the opcodes
@@ -12,9 +11,7 @@ use crate::sfz::SfzToken;
 
 #[derive(Debug, PartialEq)]
 pub enum Header {
-
     // sfz v1 headers
-
     /// The basic component of an instrument. An instrument is defined by one or more regions.
     ///
     /// - version: v1
@@ -28,7 +25,6 @@ pub enum Header {
     Group,
 
     // sfz v2 headers:
-
     /// The control header would be found at the beginning of the file
     /// and includes special opcodes for setting up MIDI CC controls.
     ///
@@ -63,7 +59,6 @@ pub enum Header {
     Effect,
 
     // aria headers:
-
     /// The master header is an extra level added inbetween group and global for the ARIA player.
     ///
     /// - version: aria extension
@@ -78,7 +73,6 @@ pub enum Header {
     Midi,
 
     // cakewalk headers:
-
     /// Allows to embed sample data directly in SFZ files (Rapture).
     ///
     /// - version: cakewalk extension
@@ -86,24 +80,23 @@ pub enum Header {
     Sample,
 }
 
-
 impl Header {
     /// Parses the opcode, making it lowercase and removing the brackets
     ///
     pub(crate) fn parse_header(lex: &mut Lexer<SfzToken>) -> Option<Header> {
         let slice = lex.slice().to_ascii_lowercase();
-        let name = &slice[1..slice.len()-1];
+        let name = &slice[1..slice.len() - 1];
         match name {
-             "region" => Some(Header::Region),
-             "group" => Some(Header::Group),
-             "control" => Some(Header::Control),
-             "global" => Some(Header::Global),
-             "curve" => Some(Header::Curve),
-             "effect" => Some(Header::Effect),
-             "master" => Some(Header::Master),
-             "midi" => Some(Header::Midi),
-             "sample" => Some(Header::Sample),
-             _ => None,
+            "region" => Some(Header::Region),
+            "group" => Some(Header::Group),
+            "control" => Some(Header::Control),
+            "global" => Some(Header::Global),
+            "curve" => Some(Header::Curve),
+            "effect" => Some(Header::Effect),
+            "master" => Some(Header::Master),
+            "midi" => Some(Header::Midi),
+            "sample" => Some(Header::Sample),
+            _ => None,
         }
     }
 }

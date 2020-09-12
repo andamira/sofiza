@@ -2,7 +2,6 @@ use phf::phf_map;
 
 use crate::sfz::types::{fil_type, trigger, OpcodeType};
 
-
 /// This map returns the optional default value of an opcode type
 pub(crate) static OPCODE_DEFAULT: phf::Map<&'static str, OpcodeType> = phf_map! {
 

@@ -1,13 +1,13 @@
+use std::fmt::Debug;
 use std::fs::File;
-use std::io::{Error, prelude::*};
+use std::io::{prelude::*, Error};
 use std::path::{Path, PathBuf};
 use std::result::Result;
-use std::fmt::Debug;
 
 use logos::Logos;
 
-use crate::sfz::{Group, Header, Opcode, Region, SfzToken};
 use crate::sfz::types::OpcodeMap;
+use crate::sfz::{Group, Header, Opcode, Region, SfzToken};
 
 /// Represents the SFZ instrument parsed
 ///
@@ -21,22 +21,19 @@ use crate::sfz::types::OpcodeMap;
 ///
 #[derive(Debug)]
 pub struct Instrument {
-    global: OpcodeMap,     // these opcodes apply by default
-    groups: Vec<Group>,    // these opcodes override those in global for current region
-    regions: Vec<Region>,  // these opcodes override global, and their group ones
+    global: OpcodeMap,    // these opcodes apply by default
+    groups: Vec<Group>,   // these opcodes override those in global for current region
+    regions: Vec<Region>, // these opcodes override global, and their group ones
 
     // maybe make this later a: struct Control
     // https://sfzformat.com/headers/control
     default_path: PathBuf,
 }
 
-
 impl Instrument {
-
     /// Creates an Instrument via loading and parsing some SFZ code in a file
     ///
     pub fn from_file(sfz_path: &Path) -> Result<Self, Error> {
-
         // open sfz file, and read it into sfz_text
         let mut sfz_file = File::open(&sfz_path)?;
         let mut sfz_text = String::new();
@@ -45,14 +42,12 @@ impl Instrument {
         Self::from_sfz(&sfz_text, sfz_path.parent().unwrap())
     }
 
-
     /// Creates an Instrument via parsing some SFZ code in a string
     ///
     /// sfz_path would be the root location from where to find the samples
     /// and default_path opcode value is appended to it.
     ///
     pub fn from_sfz(sfz: &str, sfz_path: &Path) -> Result<Self, Error> {
-
         // Initializes an instrument for construction
         let mut instrument = Instrument {
             global: OpcodeMap::new(),
@@ -61,42 +56,40 @@ impl Instrument {
             default_path: sfz_path.to_path_buf(),
         };
 
-
         // parser loop status
         let mut status = InstrumentParsingStatus::init();
 
         // parser loop
         let lex = SfzToken::lexer(&sfz);
-        for t in lex { match &t {
-
+        for t in lex {
+            match &t {
                 SfzToken::Header(h) => {
                     match h {
                         Header::Group => {
                             status.new_group();
                             instrument.groups.push(Group::new());
-                        },
+                        }
                         Header::Region => {
                             status.new_region();
 
                             // FIXME: NOTE: an empty region (or without a sample) should be discarded
                             instrument.regions.push(Region::new());
-                        },
+                        }
                         Header::Control => {
                             status.new_control();
-                        },
+                        }
                         Header::Global => {
                             status.new_global();
-                        },
+                        }
                         // TBD
                         Header::Curve => println!("\n<curve>"),
                         // TBD
                         Header::Effect => println!("\n<effect>"),
-                        _ => ()
+                        _ => (),
                     }
-                },
+                }
 
                 SfzToken::Opcode(o) => {
-
                     // an opcode for <global>
                     if status.is_header_global {
                         instrument.global.insert(o.str_name(), o.clone());
@@ -104,14 +97,10 @@ impl Instrument {
                     // an opcode for <control>
                     } else if status.is_header_control {
                         match o {
-                            Opcode::default_path(p) => {
-                                instrument.default_path.push(p)
-                            },
-                            _ => ()
+                            Opcode::default_path(p) => instrument.default_path.push(p),
+                            _ => (),
                         }
-
                     } else {
-
                         // an opcode for the <region>
                         if status.are_regions() {
                             instrument.add_region_opcode(&status, o);
@@ -119,18 +108,17 @@ impl Instrument {
                         // an opcode for the <group>
                         } else if status.are_groups() {
                             instrument.add_group_opcode(&status, o);
-
                         } else {
                             unreachable!();
                         }
                     }
-                },
+                }
                 _ => (),
-            }}
+            }
+        }
 
         Ok(instrument)
     }
-
 
     fn add_region_opcode(&mut self, status: &InstrumentParsingStatus, opcode: &Opcode) {
         self.regions[status.region_counter.unwrap()].add(opcode, status.group_counter);
@@ -140,7 +128,6 @@ impl Instrument {
         self.groups[status.group_counter.unwrap()].add(opcode);
     }
 }
-
 
 /// The current status of the parsing of the instrument
 #[derive(Debug)]
@@ -161,7 +148,6 @@ impl InstrumentParsingStatus {
             region_counter: None,
         }
     }
-
 
     /// A new group header appears
     ///
@@ -187,7 +173,6 @@ impl InstrumentParsingStatus {
         self.region_increment();
     }
 
-
     /// A new control header appears
     ///
     /// There can only be one, and must appear
@@ -198,8 +183,8 @@ impl InstrumentParsingStatus {
         if !self.is_header_control
             && !self.is_header_global
             && self.group_counter == None
-            && self.region_counter == None {
-
+            && self.region_counter == None
+        {
             // enter the <control> header
             self.is_header_control = true;
         }
@@ -212,10 +197,7 @@ impl InstrumentParsingStatus {
     ///
     // TODO: if incorrectly placed, following opcodes should be ignored
     pub fn new_global(&mut self) {
-        if !self.is_header_global
-            && self.group_counter == None
-            && self.region_counter == None {
-
+        if !self.is_header_global && self.group_counter == None && self.region_counter == None {
             // ensure we are out of the <control> header
             self.is_header_control = false;
             // enter the <global> header
@@ -226,7 +208,7 @@ impl InstrumentParsingStatus {
     /// Increments the region counter
     fn region_increment(&mut self) {
         match self.region_counter {
-            Some(c) => self.region_counter = Some(c+1),
+            Some(c) => self.region_counter = Some(c + 1),
             None => self.region_counter = Some(0),
         }
     }
@@ -237,7 +219,7 @@ impl InstrumentParsingStatus {
     /// Increments the group counter
     fn group_increment(&mut self) {
         match self.region_counter {
-            Some(c) => self.group_counter = Some(c+1),
+            Some(c) => self.group_counter = Some(c + 1),
             None => self.group_counter = Some(0),
         }
     }

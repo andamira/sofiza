@@ -17,10 +17,8 @@ use std::path::PathBuf;
 
 use crate::sfz::Opcode;
 
-
 /// Theoretical maximum sample rate possible, used for type range checks
-pub const MAX_SAMPLE_RATE:f32 = 384_000.0;
-
+pub const MAX_SAMPLE_RATE: f32 = 384_000.0;
 
 /// All the possible types allowed in an Opcode
 #[allow(non_camel_case_types)]
@@ -42,7 +40,6 @@ pub enum OpcodeType {
 /// A Hashmap of opcodes, in which the key is the opcode's name
 pub type OpcodeMap = HashMap<String, Opcode>;
 
-
 #[derive(Debug, Clone, PartialEq)]
 #[allow(non_camel_case_types)]
 pub enum loop_mode {
@@ -63,7 +60,6 @@ impl loop_mode {
         }
     }
 }
-
 
 #[derive(Debug, Clone, PartialEq)]
 #[allow(non_camel_case_types)]
@@ -94,7 +90,6 @@ impl trigger {
 #[derive(Debug, Clone, PartialEq)]
 #[allow(non_camel_case_types)]
 pub enum fil_type {
-
     /// One-pole low pass filter (6dB/octave)
     ///
     /// - version: v1
@@ -257,10 +252,8 @@ pub type UndefinedInteger = i32;
 ///
 pub type UndefinedUnsignedInteger = u32;
 
-
 /// This type is used for Opcodes with an unknown type.
 ///
 /// Opcodes using this type should be considered unimplemented, and its type
 /// should be changed to a more defined one, eventually.
 pub type UnknownType = never::Never;
-
