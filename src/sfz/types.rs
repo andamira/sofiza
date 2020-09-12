@@ -40,6 +40,9 @@ pub enum OpcodeType {
 /// A Hashmap of opcodes, in which the key is the opcode's name
 pub type OpcodeMap = HashMap<String, Opcode>;
 
+/// Allows playing samples with loops defined in the unlooped mode.
+///
+/// - info: [loop_mode](https://sfzformat.com/opcodes/loop_mode)
 #[derive(Debug, Clone, PartialEq)]
 #[allow(non_camel_case_types)]
 pub enum loop_mode {
@@ -61,6 +64,9 @@ impl loop_mode {
     }
 }
 
+/// Sets the trigger which will be used for the sample to play.
+///
+/// - info: [trigger](https://sfzformat.com/opcodes/trigger)
 #[derive(Debug, Clone, PartialEq)]
 #[allow(non_camel_case_types)]
 pub enum trigger {
@@ -86,7 +92,7 @@ impl trigger {
 
 /// Allows you to choose which type of filter you use if not specified
 ///
-/// - info: [fil_type] (https://sfzformat.com/opcodes/fil_type)
+/// - info: [fil_type](https://sfzformat.com/opcodes/fil_type)
 #[derive(Debug, Clone, PartialEq)]
 #[allow(non_camel_case_types)]
 pub enum fil_type {
