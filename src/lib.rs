@@ -1,3 +1,4 @@
+pub mod errors;
 pub mod sfz;
 
 pub use sfz::{
@@ -8,3 +9,5 @@ pub use sfz::{
     region::Region,
     types::{fil_type, loop_mode, trigger},
 };
+
+pub use errors::Error;

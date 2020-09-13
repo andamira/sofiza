@@ -1,6 +1,6 @@
 use std::fmt::Debug;
 use std::fs::File;
-use std::io::{prelude::*, Error};
+use std::io::prelude::*;
 use std::path::{Path, PathBuf};
 use std::result::Result;
 
@@ -8,6 +8,7 @@ use logos::Logos;
 
 use crate::sfz::types::OpcodeMap;
 use crate::sfz::{Group, Header, Opcode, Region, SfzToken};
+use crate::Error;
 
 /// Represents the SFZ instrument parsed
 ///
