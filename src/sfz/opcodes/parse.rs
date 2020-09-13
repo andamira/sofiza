@@ -25,7 +25,7 @@ impl Opcode {
     ///     ("lfoN_eqXgain_onccY", vec![111, 44, 55])
     ///
     pub(crate) fn parse_name(name: &str) -> (String, Vec<u8>) {
-        let mut new_name = String::new(); // the new constructed name
+        let mut new_name = String::with_capacity(name.len()); // the new constructed name
         let mut params = Vec::new(); // to store the found parameters
 
         // First parameter is always 'N', second is always 'X', and third is always 'Y'
@@ -100,7 +100,7 @@ impl Opcode {
         }
 
         //println!("NAME: {}\nPROCESSED: {:?}\n", name, (&new_name, &params)); // DEBUG
-        return (new_name, params);
+        (new_name, params)
     }
 
     /// Replaces the opcode parameter letters for numbers, as they are really used,
@@ -142,6 +142,7 @@ impl Opcode {
 
         let kv: Vec<&str> = slice.splitn(2, "=").collect();
         let (opcode, value) = (kv[0], kv[1]);
+        let value = value.trim(); // remove possible remaining CRLF chars
 
         let (opcode, values) = Opcode::parse_name(opcode);
 
