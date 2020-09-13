@@ -32,6 +32,17 @@ pub struct Instrument {
 }
 
 impl Instrument {
+    /// Creates an empty Instrument
+    ///
+    pub fn new() -> Instrument {
+        Instrument {
+            global: OpcodeMap::new(),
+            groups: Vec::<Group>::new(),
+            regions: Vec::<Region>::new(),
+            default_path: PathBuf::new(),
+        }
+    }
+
     /// Creates an Instrument via loading and parsing some SFZ code in a file
     ///
     pub fn from_file(sfz_path: &Path) -> Result<Self, Error> {
@@ -93,7 +104,7 @@ impl Instrument {
                 SfzToken::Opcode(o) => {
                     // an opcode for <global>
                     if status.is_header_global {
-                        instrument.global.insert(o.str_name(), o.clone());
+                        instrument.add_opcode_global(o);
 
                     // an opcode for <control>
                     } else if status.is_header_control {
@@ -104,11 +115,13 @@ impl Instrument {
                     } else {
                         // an opcode for the <region>
                         if status.are_regions() {
-                            instrument.add_region_opcode(&status, o);
+                            instrument.add_opcode_to_region(o, status.region_counter.unwrap())?;
+                            instrument.set_region_group(
+                                status.region_counter.unwrap(), status.group_counter)?;
 
                         // an opcode for the <group>
                         } else if status.are_groups() {
-                            instrument.add_group_opcode(&status, o);
+                            instrument.add_opcode_to_group(o, status.group_counter.unwrap())?;
                         } else {
                             unreachable!();
                         }
@@ -121,12 +134,104 @@ impl Instrument {
         Ok(instrument)
     }
 
-    fn add_region_opcode(&mut self, status: &InstrumentParsingStatus, opcode: &Opcode) {
-        self.regions[status.region_counter.unwrap()].add(opcode, status.group_counter);
+    /// Set the group of a region (group can be None)
+    pub fn set_region_group(&mut self, region: usize, group: Option<usize>) -> Result<(), Error> {
+        if region >= self.regions() {
+            return Err(Error::OutOfBounds(
+                format!["Tried set the group of Region `{0}`, but the last region is `{1}`",
+                region, self.regions()-1]
+            ));
+        }
+        if let Some(g) = group {
+            if g >= self.groups() {
+                return Err(Error::OutOfBounds(
+                    format!["Tried to set Region `{0}` to have the Group `{1}`, but the last group is `{2}`",
+                    region, g, self.groups()-1]
+                ));
+            }
+        }
+        self.regions[region].set_group(group);
+        Ok(())
     }
 
-    fn add_group_opcode(&mut self, status: &InstrumentParsingStatus, opcode: &Opcode) {
-        self.groups[status.group_counter.unwrap()].add(opcode);
+    /// Add an opcode to a region
+    pub fn add_opcode_to_region(&mut self, opcode: &Opcode, region: usize) -> Result<(), Error> {
+        if region >= self.regions() {
+            return Err(Error::OutOfBounds(
+                format!["Tried to add an Opcode to Region `{0}`, but the last region is `{1}`",
+                region, self.regions()-1]
+            ));
+        }
+        self.regions[region].add_opcode(opcode);
+        Ok(())
+    }
+
+    /// Add an opcode to a group
+    pub fn add_opcode_to_group(&mut self, opcode: &Opcode, group: usize) -> Result<(), Error> {
+        if group >= self.groups() {
+            return Err(Error::OutOfBounds(
+                format!["Tried to add an Opcode to Group `{0}`, but the last group is `{1}`",
+                group, self.groups()-1]
+            ));
+        }
+        self.groups[group].add_opcode(opcode);
+        Ok(())
+    }
+
+    /// Add an opcode to the global header
+    ///
+    pub fn add_opcode_global(&mut self, opcode: &Opcode) {
+        self.global.insert(opcode.str_name(), opcode.clone());
+    }
+
+    /// Create a new empty group header in the Instrument
+    pub fn new_group(&mut self) {
+        self.groups.push(Group::new());
+    }
+
+    /// Create a new empty region header in the Instrument
+    ///
+    /// The region gets associated with the last group created (if any)
+    pub fn new_region(&mut self) {
+        let num_groups = self.groups();
+
+        if num_groups > 0 {
+            self.regions.push(Region::with_group(num_groups - 1));
+        } else {
+            self.regions.push(Region::new());
+        }
+
+        // NOTE: needs a sample opcode to be valid
+        // maybe if the previous region doesn't have sample code, delete it?
+        // I'm not sure that's a good idea. Maybe a region can be filled later.
+    }
+
+    /// Get the number of groups
+    pub fn groups(&self) -> usize {
+        self.groups.len()
+    }
+
+    /// Get the number of regions
+    pub fn regions(&self) -> usize {
+        self.regions.len()
+    }
+
+    /// Get the number of regions in a group
+    pub fn regions_in(&self, group: usize) -> Result<usize, Error> {
+        if group >= self.groups() {
+            return Err(Error::OutOfBounds(
+                format!["There's no group `{0}`, the last group is `{1}`",
+                group, self.groups()-1]
+            ));
+        }
+
+        let mut count = 0;
+        for region in self.regions.iter() {
+            if region.group() == Some(group) {
+                count += 1;
+            }
+        }
+        Ok(count)
     }
 }
 

@@ -42,8 +42,18 @@ impl Region {
         }
     }
 
-    pub fn add(&mut self, o: &Opcode, group: Option<usize>) {
-        self.opcodes.insert(o.str_name(), o.clone());
+    /// Add an opcode to this Region
+    pub fn add_opcode(&mut self, opcode: &Opcode) {
+        self.opcodes.insert(opcode.str_name(), opcode.clone());
+    }
+
+    /// Set the group of this Region
+    pub fn set_group(&mut self, group: Option<usize>) {
         self.group = group;
+    }
+
+    /// Get the group of this Region
+    pub fn group(&self) -> Option<usize> {
+        self.group
     }
 }

@@ -22,7 +22,7 @@ impl Group {
         }
     }
 
-    pub fn add(&mut self, o: &Opcode) {
+    pub fn add_opcode(&mut self, o: &Opcode) {
         self.opcodes.insert(o.str_name(), o.clone());
     }
 }
