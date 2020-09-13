@@ -1,5 +1,6 @@
 pub mod errors;
 pub mod sfz;
+pub mod utils;
 
 pub use sfz::{
     group::Group,

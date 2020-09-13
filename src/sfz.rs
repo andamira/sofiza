@@ -11,7 +11,6 @@ pub mod opcodes;
 pub mod region;
 
 pub mod types;
-pub mod utils;
 
 pub use group::Group;
 pub use headers::Header;

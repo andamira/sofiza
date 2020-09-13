@@ -4,7 +4,8 @@ use logos::{Lexer, Logos};
 use regex::Regex;
 
 use crate::sfz::types::{fil_type, loop_mode, trigger, MAX_SAMPLE_RATE};
-use crate::sfz::{utils, Header, Opcode};
+use crate::sfz::{Header, Opcode};
+use crate::utils;
 
 impl Opcode {
     /// Receives an opcode name with numeric parameters, and returns the canonical

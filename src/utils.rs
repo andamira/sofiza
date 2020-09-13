@@ -7,5 +7,3 @@ mod parse;
 
 pub(crate) use misc::{print_type, fix_path_separators};
 pub(crate) use parse::*;
-
-pub use misc::absolute_path;

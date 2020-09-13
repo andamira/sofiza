@@ -23,15 +23,3 @@ pub(crate) fn fix_path_separators(path: &str) -> PathBuf {
         PathBuf::from(str::replace(path, r"\", r"/"))
     }
 }
-
-/// Return an absolute path to a file
-///
-/// file = the relative path from the root
-pub fn absolute_path(file: &str) -> String {
-    let mut dir = std::env::current_exe().unwrap().to_path_buf();
-    for _ in 0..4 {
-        dir.pop();
-    }
-    dir.push(file);
-    format!("{}", dir.display())
-}
