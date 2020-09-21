@@ -1,6 +1,6 @@
 //! General utilites
-
-use std::path::PathBuf;
+//!
+#![allow(dead_code, unused_imports)]
 
 mod misc;
 mod parse;

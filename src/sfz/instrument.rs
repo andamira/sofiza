@@ -29,8 +29,26 @@ pub struct Instrument {
     // maybe make this later a: struct Control
     // https://sfzformat.com/headers/control
     default_path: PathBuf,
+
+    last_header_created: Header,
 }
 
+// constructors:
+// - new
+// - from_file
+// - from_sfz
+//
+// - add_opcode
+// - add_opcode_global
+// - add_opcode_to_group
+// - add_opcode_to_region
+// - groups
+// - regions
+// - regions_in
+// - new_group
+// - new_region
+// - set_region_group
+//
 impl Instrument {
     /// Creates an empty Instrument
     ///
@@ -40,6 +58,7 @@ impl Instrument {
             groups: Vec::<Group>::new(),
             regions: Vec::<Region>::new(),
             default_path: PathBuf::new(),
+            last_header_created: Header::Global,
         }
     }
 
@@ -66,6 +85,7 @@ impl Instrument {
             groups: Vec::<Group>::new(),
             regions: Vec::<Region>::new(),
             default_path: sfz_path.to_path_buf(),
+            last_header_created: Header::Global, // not used in this constructor
         };
 
         // parser loop status
@@ -134,36 +154,22 @@ impl Instrument {
         Ok(instrument)
     }
 
-    /// Set the group of a region (group can be None)
-    pub fn set_region_group(&mut self, region: usize, group: Option<usize>) -> Result<(), Error> {
-        if region >= self.regions() {
-            return Err(Error::OutOfBounds(
-                format!["Tried set the group of Region `{0}`, but the last region is `{1}`",
-                region, self.regions()-1]
-            ));
+    /// Add an opcode, depending on context, to either the last created region,
+    /// the last created group, or the global header (in that priority order)
+    ///
+    pub fn add_opcode(&mut self, opcode: &Opcode) -> Result<(), Error> {
+        match self.last_header_created {
+            Header::Global => Ok(self.add_opcode_global(opcode)),
+            Header::Group => self.add_opcode_to_group(opcode, self.groups()-1),
+            Header::Region => self.add_opcode_to_region(opcode, self.regions()-1),
+            _ => Err(Error::Generic),
         }
-        if let Some(g) = group {
-            if g >= self.groups() {
-                return Err(Error::OutOfBounds(
-                    format!["Tried to set Region `{0}` to have the Group `{1}`, but the last group is `{2}`",
-                    region, g, self.groups()-1]
-                ));
-            }
-        }
-        self.regions[region].set_group(group);
-        Ok(())
     }
 
-    /// Add an opcode to a region
-    pub fn add_opcode_to_region(&mut self, opcode: &Opcode, region: usize) -> Result<(), Error> {
-        if region >= self.regions() {
-            return Err(Error::OutOfBounds(
-                format!["Tried to add an Opcode to Region `{0}`, but the last region is `{1}`",
-                region, self.regions()-1]
-            ));
-        }
-        self.regions[region].add_opcode(opcode);
-        Ok(())
+    /// Add an opcode to the global header
+    ///
+    pub fn add_opcode_global(&mut self, opcode: &Opcode) {
+        self.global.insert(opcode.str_name(), opcode.clone());
     }
 
     /// Add an opcode to a group
@@ -178,32 +184,16 @@ impl Instrument {
         Ok(())
     }
 
-    /// Add an opcode to the global header
-    ///
-    pub fn add_opcode_global(&mut self, opcode: &Opcode) {
-        self.global.insert(opcode.str_name(), opcode.clone());
-    }
-
-    /// Create a new empty group header in the Instrument
-    pub fn new_group(&mut self) {
-        self.groups.push(Group::new());
-    }
-
-    /// Create a new empty region header in the Instrument
-    ///
-    /// The region gets associated with the last group created (if any)
-    pub fn new_region(&mut self) {
-        let num_groups = self.groups();
-
-        if num_groups > 0 {
-            self.regions.push(Region::with_group(num_groups - 1));
-        } else {
-            self.regions.push(Region::new());
+    /// Add an opcode to a region
+    pub fn add_opcode_to_region(&mut self, opcode: &Opcode, region: usize) -> Result<(), Error> {
+        if region >= self.regions() {
+            return Err(Error::OutOfBounds(
+                format!["Tried to add an Opcode to Region `{0}`, but the last region is `{1}`",
+                region, self.regions()-1]
+            ));
         }
-
-        // NOTE: needs a sample opcode to be valid
-        // maybe if the previous region doesn't have sample code, delete it?
-        // I'm not sure that's a good idea. Maybe a region can be filled later.
+        self.regions[region].add_opcode(opcode);
+        Ok(())
     }
 
     /// Get the number of groups
@@ -232,6 +222,53 @@ impl Instrument {
             }
         }
         Ok(count)
+    }
+
+    /// Create a new empty group header in the Instrument
+    pub fn new_group(&mut self) {
+        self.groups.push(Group::new());
+        self.last_header_created = Header::Group;
+    }
+
+    /// Create a new empty region header in the Instrument
+    ///
+    /// The region gets associated with the last group created (if any)
+    pub fn new_region(&mut self) {
+        let num_groups = self.groups();
+
+        if num_groups > 0 {
+            self.regions.push(Region::with_group(num_groups - 1));
+        } else {
+            self.regions.push(Region::new());
+        }
+
+        self.last_header_created = Header::Region;
+
+        // NOTE: needs a Opcode::sample in order to be valid
+        // maybe if the previous region doesn't have sample code, delete it?
+        // I'm not sure that's a good idea. Maybe a sample can be added later.
+        //
+        // Maybe add a method to check and delete all the regions without a sample
+    }
+
+    /// Set the group of a region (group can be None)
+    pub fn set_region_group(&mut self, region: usize, group: Option<usize>) -> Result<(), Error> {
+        if region >= self.regions() {
+            return Err(Error::OutOfBounds(
+                format!["Tried set the group of Region `{0}`, but the last region is `{1}`",
+                region, self.regions()-1]
+            ));
+        }
+        if let Some(g) = group {
+            if g >= self.groups() {
+                return Err(Error::OutOfBounds(
+                    format!["Tried to set Region `{0}` to have the Group `{1}`, but the last group is `{2}`",
+                    region, g, self.groups()-1]
+                ));
+            }
+        }
+        self.regions[region].set_group(group);
+        Ok(())
     }
 }
 

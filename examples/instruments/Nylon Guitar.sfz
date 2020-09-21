@@ -1,0 +1,2300 @@
+<group>
+volume=-1.155
+fillfo_freq=3.001
+amplfo_freq=3.001
+
+<region> sample=Samples\Nylon Guitar\40v1.wav
+lokey=0
+hikey=40
+pitch_keycenter=40
+lovel=1
+hivel=84
+tune=5
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\41v1.wav
+key=41
+lovel=1
+hivel=84
+tune=-2
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\41v1nz.wav
+key=41
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\42v1.wav
+key=42
+lovel=1
+hivel=84
+tune=1
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\42v1nz.wav
+key=42
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\43v1.wav
+key=43
+lovel=1
+hivel=84
+tune=-2
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\43v1nz.wav
+key=43
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\44v1.wav
+key=44
+lovel=1
+hivel=84
+tune=7
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\44v1nz.wav
+key=44
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\45v1.wav
+key=45
+lovel=1
+hivel=84
+tune=22
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\46v1.wav
+key=46
+lovel=1
+hivel=84
+tune=19
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\46v1nz.wav
+key=46
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\47v1.wav
+key=47
+lovel=1
+hivel=84
+tune=13
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\47v1nz.wav
+key=47
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\48v1.wav
+key=48
+lovel=1
+hivel=84
+tune=12
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\48v1nz.wav
+key=48
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\49v1.wav
+key=49
+lovel=1
+hivel=84
+tune=11
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\50v1.wav
+key=50
+lovel=1
+hivel=84
+tune=27
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\51v1.wav
+key=51
+lovel=1
+hivel=84
+tune=21
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\51v1nz.wav
+key=51
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\52v1.wav
+key=52
+lovel=1
+hivel=84
+tune=21
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\52v1nz.wav
+key=52
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\53v1.wav
+key=53
+lovel=1
+hivel=84
+tune=23
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\53v1nz.wav
+key=53
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\54v1.wav
+key=54
+lovel=1
+hivel=84
+tune=24
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\54v1nz.wav
+key=54
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\55v1.wav
+key=55
+lovel=1
+hivel=84
+tune=8
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\55v1nz.wav
+key=55
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\56v1.wav
+key=56
+lovel=1
+hivel=84
+tune=5
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\56v1nz.wav
+key=56
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\57v1.wav
+key=57
+lovel=1
+hivel=84
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\57v1nz.wav
+key=57
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\58v1.wav
+key=58
+lovel=1
+hivel=84
+tune=5
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\58v1nz.wav
+key=58
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\59v1.wav
+key=59
+lovel=1
+hivel=84
+tune=9
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\60v1.wav
+key=60
+lovel=1
+hivel=84
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\60v1nz.wav
+key=60
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\61v1.wav
+key=61
+lovel=1
+hivel=84
+tune=-5
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\61v1nz.wav
+key=61
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\62v1.wav
+key=62
+lovel=1
+hivel=84
+tune=-8
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\62v1nz.wav
+key=62
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\63v1.wav
+key=63
+lovel=1
+hivel=84
+tune=-5
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\63v1nz.wav
+key=63
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\64v1.wav
+key=64
+lovel=1
+hivel=84
+tune=10
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\65v1.wav
+key=65
+lovel=1
+hivel=84
+tune=7
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\66v1.wav
+key=66
+lovel=1
+hivel=84
+tune=6
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\67v1.wav
+key=67
+lovel=1
+hivel=84
+tune=11
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\68v1.wav
+key=68
+lovel=1
+hivel=84
+tune=10
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\69v1.wav
+key=69
+lovel=1
+hivel=84
+tune=6
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\70v1.wav
+key=70
+lovel=1
+hivel=84
+tune=8
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\71v1.wav
+key=71
+lovel=1
+hivel=84
+tune=4
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\72v1.wav
+key=72
+lovel=1
+hivel=84
+tune=5
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\73v1.wav
+key=73
+lovel=1
+hivel=84
+tune=4
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\74v1.wav
+key=74
+lovel=1
+hivel=84
+tune=9
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\75v1.wav
+key=75
+lovel=1
+hivel=84
+tune=6
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\76v1.wav
+lokey=76
+hikey=127
+pitch_keycenter=76
+lovel=1
+hivel=84
+tune=3
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\65v1nz.wav
+key=65
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\66v1nz.wav
+key=66
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\67v1nz.wav
+key=67
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\68v1nz.wav
+key=68
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\69v1nz.wav
+key=69
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\70v1nz.wav
+key=70
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\71v1nz.wav
+key=71
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\73v1nz.wav
+key=73
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\74v1nz.wav
+key=74
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\75v1nz.wav
+key=75
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\76v1nz.wav
+key=76
+lovel=1
+hivel=84
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\40v2.wav
+lokey=0
+hikey=40
+pitch_keycenter=40
+lovel=85
+hivel=110
+tune=5
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\41v2.wav
+key=41
+lovel=85
+hivel=110
+tune=2
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\41v2nz.wav
+key=41
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\42v2.wav
+key=42
+lovel=85
+hivel=110
+tune=3
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\42v2nz.wav
+key=42
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\43v2.wav
+key=43
+lovel=85
+hivel=110
+tune=6
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\43v2nz.wav
+key=43
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\44v2.wav
+key=44
+lovel=85
+hivel=110
+tune=-2
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\44v2nz.wav
+key=44
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\45v2.wav
+key=45
+lovel=85
+hivel=110
+tune=24
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\45v2nz.wav
+key=45
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\46v2.wav
+key=46
+lovel=85
+hivel=110
+tune=14
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\46v2nz.wav
+key=46
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\47v2.wav
+key=47
+lovel=85
+hivel=110
+tune=14
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\47v2nz.wav
+key=47
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\48v2.wav
+key=48
+lovel=85
+hivel=110
+tune=21
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\48v2nz.wav
+key=48
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\49v2.wav
+key=49
+lovel=85
+hivel=110
+tune=15
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\50v2.wav
+key=50
+lovel=85
+hivel=110
+tune=22
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\51v2.wav
+key=51
+lovel=85
+hivel=110
+tune=14
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\51v2nz.wav
+key=51
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\52v2.wav
+key=52
+lovel=85
+hivel=110
+tune=21
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\52v2nz.wav
+key=52
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\53v2.wav
+key=53
+lovel=85
+hivel=110
+tune=14
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\53v2nz.wav
+key=53
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\54v2.wav
+key=54
+lovel=85
+hivel=110
+tune=17
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\54v2nz.wav
+key=54
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\55v2.wav
+key=55
+lovel=85
+hivel=110
+tune=6
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\56v2.wav
+key=56
+lovel=85
+hivel=110
+tune=3
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\56v2nz.wav
+key=56
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\57v2.wav
+key=57
+lovel=85
+hivel=110
+tune=-6
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\57v2nz.wav
+key=57
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\58v2.wav
+key=58
+lovel=85
+hivel=110
+tune=-5
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\58v2nz.wav
+key=58
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\59v2.wav
+key=59
+lovel=85
+hivel=110
+tune=10
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\60v2.wav
+key=60
+lovel=85
+hivel=110
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\60v2nz.wav
+key=60
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\61v2.wav
+key=61
+lovel=85
+hivel=110
+tune=-5
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\61v2nz.wav
+key=61
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\62v2.wav
+key=62
+lovel=85
+hivel=110
+tune=-6
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\62v2nz.wav
+key=62
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\63v2.wav
+key=63
+lovel=85
+hivel=110
+tune=-4
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\63v2nz.wav
+key=63
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\64v2.wav
+key=64
+lovel=85
+hivel=110
+tune=9
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\65v2.wav
+key=65
+lovel=85
+hivel=110
+tune=4
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\66v2.wav
+key=66
+lovel=85
+hivel=110
+tune=3
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\67v2.wav
+key=67
+lovel=85
+hivel=110
+tune=7
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\68v2.wav
+key=68
+lovel=85
+hivel=110
+tune=9
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\69v2.wav
+key=69
+lovel=85
+hivel=110
+tune=3
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\70v2.wav
+key=70
+lovel=85
+hivel=110
+tune=5
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\71v2.wav
+key=71
+lovel=85
+hivel=110
+tune=5
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\72v2.wav
+key=72
+lovel=85
+hivel=110
+tune=7
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\73v2.wav
+key=73
+lovel=85
+hivel=110
+tune=7
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\74v2.wav
+key=74
+lovel=85
+hivel=110
+tune=9
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\75v2.wav
+key=75
+lovel=85
+hivel=110
+tune=5
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\76v2.wav
+lokey=76
+hikey=127
+pitch_keycenter=76
+lovel=85
+hivel=110
+tune=5
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\64v2nz.wav
+key=64
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\65v2nz.wav
+key=65
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\66v2nz.wav
+key=66
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\67v2nz.wav
+key=67
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\68v2nz.wav
+key=68
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\69v2nz.wav
+key=69
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\70v2nz.wav
+key=70
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\71v2nz.wav
+key=71
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\72v2nz.wav
+key=72
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\73v2nz.wav
+key=73
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\74v2nz.wav
+key=74
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\75v2nz.wav
+key=75
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\76v2nz.wav
+key=76
+lovel=85
+hivel=110
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\40v3.wav
+lokey=0
+hikey=40
+pitch_keycenter=40
+lovel=111
+hivel=120
+tune=9
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\41v3.wav
+key=41
+lovel=111
+hivel=120
+tune=2
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\41v3nz.wav
+key=41
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\42v3.wav
+key=42
+lovel=111
+hivel=120
+tune=-3
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\42v3nz.wav
+key=42
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\43v3.wav
+key=43
+lovel=111
+hivel=120
+tune=-9
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\43v3nz.wav
+key=43
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\44v3.wav
+key=44
+lovel=111
+hivel=120
+tune=-5
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\44v3nz.wav
+key=44
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\45v3.wav
+key=45
+lovel=111
+hivel=120
+tune=19
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\46v3.wav
+key=46
+lovel=111
+hivel=120
+tune=13
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\46v3nz.wav
+key=46
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\47v3.wav
+key=47
+lovel=111
+hivel=120
+tune=15
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\47v3nz.wav
+key=47
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\48v3.wav
+key=48
+lovel=111
+hivel=120
+tune=11
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\48v3nz.wav
+key=48
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\49v3.wav
+key=49
+lovel=111
+hivel=120
+tune=-2
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\49v3nz.wav
+key=49
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\50v3.wav
+key=50
+lovel=111
+hivel=120
+tune=22
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\51v3.wav
+key=51
+lovel=111
+hivel=120
+tune=14
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\51v3nz.wav
+key=51
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\52v3.wav
+key=52
+lovel=111
+hivel=120
+tune=15
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\52v3nz.wav
+key=52
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\53v3.wav
+key=53
+lovel=111
+hivel=120
+tune=23
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\53v3nz.wav
+key=53
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\54v3.wav
+key=54
+lovel=111
+hivel=120
+tune=17
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\54v3nz.wav
+key=54
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\55v3.wav
+key=55
+lovel=111
+hivel=120
+tune=7
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\55v3nz.wav
+key=55
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\56v3.wav
+key=56
+lovel=111
+hivel=120
+tune=4
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\56v3nz.wav
+key=56
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\57v3.wav
+key=57
+lovel=111
+hivel=120
+tune=1
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\57v3nz.wav
+key=57
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\58v3.wav
+key=58
+lovel=111
+hivel=120
+tune=-5
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\59v3.wav
+key=59
+lovel=111
+hivel=120
+tune=8
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\60v3.wav
+key=60
+lovel=111
+hivel=120
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\60v3nz.wav
+key=60
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\61v3.wav
+key=61
+lovel=111
+hivel=120
+tune=-5
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\61v3nz.wav
+key=61
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\62v3.wav
+key=62
+lovel=111
+hivel=120
+tune=-9
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\62v3nz.wav
+key=62
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\63v3.wav
+key=63
+lovel=111
+hivel=120
+tune=-8
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\64v3.wav
+key=64
+lovel=111
+hivel=120
+tune=10
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\65v3.wav
+key=65
+lovel=111
+hivel=120
+tune=6
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\66v3.wav
+key=66
+lovel=111
+hivel=120
+tune=7
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\67v3.wav
+key=67
+lovel=111
+hivel=120
+tune=9
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\68v3.wav
+key=68
+lovel=111
+hivel=120
+tune=4
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\69v3.wav
+key=69
+lovel=111
+hivel=120
+tune=7
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\70v3.wav
+key=70
+lovel=111
+hivel=120
+tune=5
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\71v3.wav
+key=71
+lovel=111
+hivel=120
+tune=10
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\72v3.wav
+key=72
+lovel=111
+hivel=120
+tune=9
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\73v3.wav
+key=73
+lovel=111
+hivel=120
+tune=10
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\74v3.wav
+key=74
+lovel=111
+hivel=120
+tune=10
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\75v3.wav
+key=75
+lovel=111
+hivel=120
+tune=13
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\76v3.wav
+lokey=76
+hikey=127
+pitch_keycenter=76
+lovel=111
+hivel=120
+tune=8
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\65v3nz.wav
+key=65
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\66v3nz.wav
+key=66
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\67v3nz.wav
+key=67
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\68v3nz.wav
+key=68
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\69v3nz.wav
+key=69
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\70v3nz.wav
+key=70
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\71v3nz.wav
+key=71
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\72v3nz.wav
+key=72
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\73v3nz.wav
+key=73
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\74v3nz.wav
+key=74
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\75v3nz.wav
+key=75
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\76v3nz.wav
+key=76
+lovel=111
+hivel=120
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\40v4.wav
+lokey=0
+hikey=40
+pitch_keycenter=40
+lovel=121
+hivel=127
+tune=6
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\41v4.wav
+key=41
+lovel=121
+hivel=127
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\41v4nz.wav
+key=41
+lovel=121
+hivel=127
+ampeg_decay=0.101
+ampeg_sustain=3.9355
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\42v4.wav
+key=42
+lovel=121
+hivel=127
+tune=-8
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\42v4nz.wav
+key=42
+lovel=121
+hivel=127
+ampeg_decay=0.101
+ampeg_sustain=3.9355
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\43v4.wav
+key=43
+lovel=121
+hivel=127
+tune=3
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\43v4nz.wav
+key=43
+lovel=121
+hivel=127
+ampeg_decay=0.101
+ampeg_sustain=3.9355
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\44v4.wav
+key=44
+lovel=121
+hivel=127
+tune=-14
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\45v4.wav
+key=45
+lovel=121
+hivel=127
+tune=19
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\46v4.wav
+key=46
+lovel=121
+hivel=127
+tune=16
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\46v4nz.wav
+key=46
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\47v4.wav
+key=47
+lovel=121
+hivel=127
+tune=13
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\47v4nz.wav
+key=47
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\48v4.wav
+key=48
+lovel=121
+hivel=127
+tune=6
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\48v4nz.wav
+key=48
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\49v4.wav
+key=49
+lovel=121
+hivel=127
+tune=10
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\50v4.wav
+key=50
+lovel=121
+hivel=127
+tune=22
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\51v4.wav
+key=51
+lovel=121
+hivel=127
+tune=15
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\51v4nz.wav
+key=51
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\52v4.wav
+key=52
+lovel=121
+hivel=127
+tune=15
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\52v4nz.wav
+key=52
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\53v4.wav
+key=53
+lovel=121
+hivel=127
+tune=23
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\53v4nz.wav
+key=53
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\54v4.wav
+key=54
+lovel=121
+hivel=127
+tune=26
+ampeg_decay=36.993
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\55v4.wav
+key=55
+lovel=121
+hivel=127
+tune=6
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\56v4.wav
+key=56
+lovel=121
+hivel=127
+tune=3
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\56v4nz.wav
+key=56
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\57v4.wav
+key=57
+lovel=121
+hivel=127
+tune=3
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\57v4nz.wav
+key=57
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\58v4.wav
+key=58
+lovel=121
+hivel=127
+tune=-4
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\59v4.wav
+key=59
+lovel=121
+hivel=127
+tune=9
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\60v4.wav
+key=60
+lovel=121
+hivel=127
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\60v4nz.wav
+key=60
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\61v4.wav
+key=61
+lovel=121
+hivel=127
+tune=-4
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\61v4nz.wav
+key=61
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\62v4.wav
+key=62
+lovel=121
+hivel=127
+tune=-9
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\62v4nz.wav
+key=62
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\63v4.wav
+key=63
+lovel=121
+hivel=127
+tune=-10
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\64v4.wav
+key=64
+lovel=121
+hivel=127
+tune=7
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\65v4.wav
+key=65
+lovel=121
+hivel=127
+tune=8
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\66v4.wav
+key=66
+lovel=121
+hivel=127
+tune=6
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\67v4.wav
+key=67
+lovel=121
+hivel=127
+tune=5
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\68v4.wav
+key=68
+lovel=121
+hivel=127
+tune=5
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\69v4.wav
+key=69
+lovel=121
+hivel=127
+tune=7
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\70v4.wav
+key=70
+lovel=121
+hivel=127
+tune=6
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\71v4.wav
+key=71
+lovel=121
+hivel=127
+tune=9
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\72v4.wav
+key=72
+lovel=121
+hivel=127
+tune=9
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\73v4.wav
+key=73
+lovel=121
+hivel=127
+tune=7
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\74v4.wav
+key=74
+lovel=121
+hivel=127
+tune=5
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\75v4.wav
+key=75
+lovel=121
+hivel=127
+tune=8
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\76v4.wav
+lokey=76
+hikey=127
+pitch_keycenter=76
+lovel=121
+hivel=127
+tune=8
+ampeg_decay=8.775
+ampeg_sustain=0.001
+ampeg_release=0.766
+
+<region> sample=Samples\Nylon Guitar\64v4nz.wav
+key=64
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\65v4nz.wav
+key=65
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\66v4nz.wav
+key=66
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\67v4nz.wav
+key=67
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\68v4nz.wav
+key=68
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\69v4nz.wav
+key=69
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\70v4nz.wav
+key=70
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\71v4nz.wav
+key=71
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\72v4nz.wav
+key=72
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\73v4nz.wav
+key=73
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\74v4nz.wav
+key=74
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\75v4nz.wav
+key=75
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+<region> sample=Samples\Nylon Guitar\76v4nz.wav
+key=76
+lovel=121
+hivel=127
+ampeg_decay=8.98
+ampeg_sustain=0.001
+ampeg_release=8.182
+
+
