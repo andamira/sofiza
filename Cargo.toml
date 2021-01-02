@@ -18,10 +18,8 @@ categories = ["parser-implementations", "multimedia::audio"]
 keywords = ["parser", "audio", "virtual", "music", "instrument"]
 
 [dependencies]
-logos = "0.11.4"
+logos = "0.11"
 regex = "1"
-
-shellexpand = "1.1.1"
 
 phf = { version = "0.8", features = ["macros"] }
 

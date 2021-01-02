@@ -2,6 +2,11 @@
 
 An SFZ format parser
 
+[![Crate](https://img.shields.io/crates/v/sofiza.svg)](https://crates.io/crates/sofiza)
+[![API](https://docs.rs/sofiza/badge.svg)](https://docs.rs/sofiza/)
+[![dependency status](https://deps.rs/crate/sofiza/0.1.2/status.svg)](https://deps.rs/crate/sofiza/0.1.2)
+[![MSRV: 1.43.0](https://flat.badgen.net/badge/MSRV/1.43.0/purple)](https://blog.rust-lang.org/2020/04/23/Rust-1.43.0.html)
+
 
 ## Implementation progress
 
