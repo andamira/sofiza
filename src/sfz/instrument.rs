@@ -1,14 +1,16 @@
-use std::fmt::Debug;
-use std::fs::File;
-use std::io::prelude::*;
-use std::path::{Path, PathBuf};
-use std::result::Result;
+use std::{
+    fmt::Debug,
+    fs::File,
+    io::prelude::*,
+    path::{Path, PathBuf},
+};
 
 use logos::Logos;
 
-use crate::sfz::types::OpcodeMap;
-use crate::sfz::{Group, Header, Opcode, Region, SfzToken};
-use crate::Error;
+use crate::{
+    error::{Error, Result},
+    sfz::{types::OpcodeMap, Group, Header, Opcode, Region, SfzToken},
+};
 
 /// Represents the SFZ instrument parsed
 ///
@@ -22,9 +24,18 @@ use crate::Error;
 ///
 #[derive(Debug)]
 pub struct Instrument {
-    global: OpcodeMap,    // these opcodes apply by default
-    groups: Vec<Group>,   // these opcodes override those in global for current region
-    regions: Vec<Region>, // these opcodes override global, and their group ones
+    /// The default opcodes for this instrument.
+    pub global: OpcodeMap,
+
+    /// The list of groups.
+    ///
+    /// The opcodes in a group overrides those in global, for the associated region.
+    pub groups: Vec<Group>,
+
+    /// The list of regions.
+    ///
+    /// The opcodes in a region overrides those in global and in its group.
+    pub regions: Vec<Region>, // these opcodes override global, and their group ones
 
     // maybe make this later a: struct Control
     // https://sfzformat.com/headers/control
@@ -64,7 +75,7 @@ impl Instrument {
 
     /// Creates an Instrument via loading and parsing some SFZ code in a file
     ///
-    pub fn from_file(sfz_path: &Path) -> Result<Self, Error> {
+    pub fn from_file(sfz_path: &Path) -> Result<Self> {
         // open sfz file, and read it into sfz_text
         let mut sfz_file = File::open(&sfz_path)?;
         let mut sfz_text = String::new();
@@ -78,7 +89,7 @@ impl Instrument {
     /// sfz_path would be the root location from where to find the samples
     /// and default_path opcode value is appended to it.
     ///
-    pub fn from_sfz(sfz: &str, sfz_path: &Path) -> Result<Self, Error> {
+    pub fn from_sfz(sfz: &str, sfz_path: &Path) -> Result<Self> {
         // Initializes an instrument for construction
         let mut instrument = Instrument {
             global: OpcodeMap::new(),
@@ -137,7 +148,9 @@ impl Instrument {
                         if status.are_regions() {
                             instrument.add_opcode_to_region(o, status.region_counter.unwrap())?;
                             instrument.set_region_group(
-                                status.region_counter.unwrap(), status.group_counter)?;
+                                status.region_counter.unwrap(),
+                                status.group_counter,
+                            )?;
 
                         // an opcode for the <group>
                         } else if status.are_groups() {
@@ -157,11 +170,11 @@ impl Instrument {
     /// Add an opcode, depending on context, to either the last created region,
     /// the last created group, or the global header (in that priority order)
     ///
-    pub fn add_opcode(&mut self, opcode: &Opcode) -> Result<(), Error> {
+    pub fn add_opcode(&mut self, opcode: &Opcode) -> Result<()> {
         match self.last_header_created {
             Header::Global => Ok(self.add_opcode_global(opcode)),
-            Header::Group => self.add_opcode_to_group(opcode, self.groups()-1),
-            Header::Region => self.add_opcode_to_region(opcode, self.regions()-1),
+            Header::Group => self.add_opcode_to_group(opcode, self.groups() - 1),
+            Header::Region => self.add_opcode_to_region(opcode, self.regions() - 1),
             _ => Err(Error::Generic),
         }
     }
@@ -173,24 +186,26 @@ impl Instrument {
     }
 
     /// Add an opcode to a group
-    pub fn add_opcode_to_group(&mut self, opcode: &Opcode, group: usize) -> Result<(), Error> {
+    pub fn add_opcode_to_group(&mut self, opcode: &Opcode, group: usize) -> Result<()> {
         if group >= self.groups() {
-            return Err(Error::OutOfBounds(
-                format!["Tried to add an Opcode to Group `{0}`, but the last group is `{1}`",
-                group, self.groups()-1]
-            ));
+            return Err(Error::OutOfBounds(format![
+                "Tried to add an Opcode to Group `{0}`, but the last group is `{1}`",
+                group,
+                self.groups() - 1
+            ]));
         }
         self.groups[group].add_opcode(opcode);
         Ok(())
     }
 
     /// Add an opcode to a region
-    pub fn add_opcode_to_region(&mut self, opcode: &Opcode, region: usize) -> Result<(), Error> {
+    pub fn add_opcode_to_region(&mut self, opcode: &Opcode, region: usize) -> Result<()> {
         if region >= self.regions() {
-            return Err(Error::OutOfBounds(
-                format!["Tried to add an Opcode to Region `{0}`, but the last region is `{1}`",
-                region, self.regions()-1]
-            ));
+            return Err(Error::OutOfBounds(format![
+                "Tried to add an Opcode to Region `{0}`, but the last region is `{1}`",
+                region,
+                self.regions() - 1
+            ]));
         }
         self.regions[region].add_opcode(opcode);
         Ok(())
@@ -207,12 +222,13 @@ impl Instrument {
     }
 
     /// Get the number of regions in a group
-    pub fn regions_in(&self, group: usize) -> Result<usize, Error> {
+    pub fn regions_in(&self, group: usize) -> Result<usize> {
         if group >= self.groups() {
-            return Err(Error::OutOfBounds(
-                format!["There's no group `{0}`, the last group is `{1}`",
-                group, self.groups()-1]
-            ));
+            return Err(Error::OutOfBounds(format![
+                "There's no group `{0}`, the last group is `{1}`",
+                group,
+                self.groups() - 1
+            ]));
         }
 
         let mut count = 0;
@@ -252,12 +268,13 @@ impl Instrument {
     }
 
     /// Set the group of a region (group can be None)
-    pub fn set_region_group(&mut self, region: usize, group: Option<usize>) -> Result<(), Error> {
+    pub fn set_region_group(&mut self, region: usize, group: Option<usize>) -> Result<()> {
         if region >= self.regions() {
-            return Err(Error::OutOfBounds(
-                format!["Tried set the group of Region `{0}`, but the last region is `{1}`",
-                region, self.regions()-1]
-            ));
+            return Err(Error::OutOfBounds(format![
+                "Tried set the group of Region `{0}`, but the last region is `{1}`",
+                region,
+                self.regions() - 1
+            ]));
         }
         if let Some(g) = group {
             if g >= self.groups() {

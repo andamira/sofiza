@@ -10,8 +10,11 @@ use crate::sfz::{Opcode, OpcodeMap};
 ///
 #[derive(Debug)]
 pub struct Group {
-    opcodes: OpcodeMap, // these opcodes overwrites the defaults, and the inherited
-    label: String,
+    /// This list of opcodes overwrites the default ones.
+    pub opcodes: OpcodeMap,
+
+    /// The label of this group.
+    pub label: String,
 }
 
 impl Group {

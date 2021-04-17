@@ -5,5 +5,5 @@
 mod misc;
 mod parse;
 
-pub(crate) use misc::{print_type, fix_path_separators};
+pub(crate) use misc::{fix_path_separators, print_type};
 pub(crate) use parse::*;

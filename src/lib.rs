@@ -1,14 +1,8 @@
-mod errors;
+pub mod error;
 pub(crate) mod sfz;
 pub(crate) mod utils;
 
 pub use sfz::{
-    Group,
-    Header,
-    Instrument,
-    Opcode,
-    Region,
     types::{fil_type, loop_mode, trigger},
+    Group, Header, Instrument, Opcode, Region,
 };
-
-pub use errors::Error;

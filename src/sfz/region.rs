@@ -22,8 +22,11 @@ use crate::sfz::{Opcode, OpcodeMap};
 ///
 #[derive(Debug)]
 pub struct Region {
-    group: Option<usize>, // inherits the opcodes in this group
-    opcodes: OpcodeMap,   // these opcodes overwrites the defaults, and the inherited
+    /// The opcodes of this group are applied and will override the defaults.
+    pub group: Option<usize>,
+
+    /// This list of opcodes will override both the default and inherited opcodes.
+    pub opcodes: OpcodeMap,
 }
 
 impl Region {

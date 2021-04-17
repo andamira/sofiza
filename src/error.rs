@@ -1,9 +1,8 @@
 use thiserror::Error;
 
-/// enumerates all possible errors returned by this library
+/// All the possible errors returned by this library.
 #[derive(Error, Debug)]
 pub enum Error {
-
     // (TBD more specific)
     #[error("generic error")]
     Generic,
@@ -14,9 +13,10 @@ pub enum Error {
     /// Represents all other cases of `std::io::Error`.
     #[error(transparent)]
     IOError(#[from] std::io::Error),
-
 }
 
+/// The more concise Result type used by this library.
+pub type Result<T> = std::result::Result<T, Error>;
 
 #[cfg(test)]
 mod tests_error {
@@ -30,5 +30,4 @@ mod tests_error {
     fn test_error() {
         assert("generic error", Error::Generic);
     }
-
 }
