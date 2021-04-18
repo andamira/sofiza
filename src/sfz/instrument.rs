@@ -37,9 +37,10 @@ pub struct Instrument {
     /// The opcodes in a region overrides those in global and in its group.
     pub regions: Vec<Region>, // these opcodes override global, and their group ones
 
+    /// The default path.
     // maybe make this later a: struct Control
     // https://sfzformat.com/headers/control
-    default_path: PathBuf,
+    pub default_path: PathBuf,
 
     last_header_created: Header,
 }
@@ -287,6 +288,9 @@ impl Instrument {
         self.regions[region].set_group(group);
         Ok(())
     }
+
+    // TODO:
+    pub fn groups_iter(&self) -> () {}
 }
 
 /// The current status of the parsing of the instrument
