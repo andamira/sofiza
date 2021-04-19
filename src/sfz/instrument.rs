@@ -158,7 +158,7 @@ impl Instrument {
                         }
                     } else {
                         // an opcode for the <region>
-                        if status.are_regions() {
+                        if status.are_regions_in_current_group() {
                             #[cfg(debug)]
                             println!(
                                 "  - new region opcode: {:?} (g{} r{})",
@@ -365,7 +365,7 @@ impl InstrumentParsingStatus {
         // ensure we are out of the <global> header
         self.is_header_global = false;
         // ensure we reset the region counter for the current group
-        self.region_reset();
+        self.region_reset_in_current_group();
         // increment the group counter
         self.group_increment();
     }
@@ -435,9 +435,9 @@ impl InstrumentParsingStatus {
     }
 
     /// Resets the region counter for the group
-    fn region_reset(&mut self) {
+    fn region_reset_in_current_group(&mut self) {
         #[cfg(debug)]
-        println!("  status.region_reset()");
+        println!("  status.region_reset_in_current_group()");
         self.region_counter_in_group = None;
     }
 
@@ -463,7 +463,7 @@ impl InstrumentParsingStatus {
     }
 
     /// Are there any regions already defined for the current group?
-    pub fn are_regions(&self) -> bool {
+    pub fn are_regions_in_current_group(&self) -> bool {
         if self.region_counter_in_group == None {
             return false;
         }

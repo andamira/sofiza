@@ -172,6 +172,8 @@ impl Opcode {
             ("ampeg_sustain", _) => {
                 utils::check_f32_between(value, 0., 100.).map(Opcode::ampeg_sustain)
             }
+            ("bend_down", _) => utils::check_i16_between(value, -9600, 9600).map(Opcode::bend_down),
+            ("bend_up", _) => utils::check_i16_between(value, -9600, 9600).map(Opcode::bend_up),
             // NOTE: upper range is SampleRate/2 (it should be checked when sample rate is known)
             ("cutoff", _) => {
                 utils::check_f32_between(value, 0., MAX_SAMPLE_RATE).map(Opcode::cutoff)
