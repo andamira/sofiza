@@ -91,6 +91,9 @@ impl Instrument {
     /// and default_path opcode value is appended to it.
     ///
     pub fn from_sfz(sfz: &str, sfz_path: &Path) -> Result<Self> {
+        #[cfg(debug)]
+        println!("DEBUG: Instrument::from_sfz()\n-----------------------------");
+
         // Initializes an instrument for construction
         let mut instrument = Instrument {
             global: OpcodeMap::new(),
@@ -110,13 +113,19 @@ impl Instrument {
                 SfzToken::Header(h) => {
                     match h {
                         Header::Group => {
+                            #[cfg(debug)]
+                            println!("\nFound a new group:");
+
                             status.new_group();
                             instrument.groups.push(Group::new());
                         }
                         Header::Region => {
+                            #[cfg(debug)]
+                            println!("\nFound a new region:");
+
                             status.new_region();
 
-                            // FIXME: NOTE: an empty region (or without a sample) should be discarded
+                            // FIXME: SPEC: discard an empty region (or without a sample)
                             instrument.regions.push(Region::new());
                         }
                         Header::Control => {
@@ -136,6 +145,9 @@ impl Instrument {
                 SfzToken::Opcode(o) => {
                     // an opcode for <global>
                     if status.is_header_global {
+                        #[cfg(debug)]
+                        println!("global OP {:?}", o);
+
                         instrument.add_opcode_global(o);
 
                     // an opcode for <control>
@@ -147,6 +159,14 @@ impl Instrument {
                     } else {
                         // an opcode for the <region>
                         if status.are_regions() {
+                            #[cfg(debug)]
+                            println!(
+                                "  - new region opcode: {:?} (g{} r{})",
+                                o,
+                                status.group_counter.unwrap(),
+                                status.region_counter.unwrap()
+                            );
+
                             instrument.add_opcode_to_region(o, status.region_counter.unwrap())?;
                             instrument.set_region_group(
                                 status.region_counter.unwrap(),
@@ -155,6 +175,9 @@ impl Instrument {
 
                         // an opcode for the <group>
                         } else if status.are_groups() {
+                            #[cfg(debug)]
+                            println!("  - new group opcode: {:?}", o);
+
                             instrument.add_opcode_to_group(o, status.group_counter.unwrap())?;
                         } else {
                             unreachable!();
@@ -164,6 +187,9 @@ impl Instrument {
                 _ => (),
             }
         }
+
+        #[cfg(debug)]
+        println!("-----------------------------------\n");
 
         Ok(instrument)
     }
@@ -201,6 +227,12 @@ impl Instrument {
 
     /// Add an opcode to a region
     pub fn add_opcode_to_region(&mut self, opcode: &Opcode, region: usize) -> Result<()> {
+        #[cfg(debug)]
+        println!(
+            "    status.add_opcode_to_region() opcode: {:?} region: {}",
+            opcode, region
+        );
+
         if region >= self.regions() {
             return Err(Error::OutOfBounds(format![
                 "Tried to add an Opcode to Region `{0}`, but the last region is `{1}`",
@@ -269,7 +301,13 @@ impl Instrument {
     }
 
     /// Set the group of a region (group can be None)
+    // FIXME: rethink receiving Option for group
     pub fn set_region_group(&mut self, region: usize, group: Option<usize>) -> Result<()> {
+        #[cfg(debug)]
+        println!(
+            "    status.set_region_group() region: {} group: {:?}",
+            region, group
+        );
         if region >= self.regions() {
             return Err(Error::OutOfBounds(format![
                 "Tried set the group of Region `{0}`, but the last region is `{1}`",
@@ -285,6 +323,7 @@ impl Instrument {
                 ));
             }
         }
+        // FIXME
         self.regions[region].set_group(group);
         Ok(())
     }
@@ -300,7 +339,9 @@ struct InstrumentParsingStatus {
     is_header_global: bool,
     // counts groups (first one is 0, valid as index)
     group_counter: Option<usize>,
-    // counts regions inside a group (first one is 0, valid as index)
+    // counts regions inside last group (first one is 0, valid as index)
+    region_counter_in_group: Option<usize>,
+    // counts all regions
     region_counter: Option<usize>,
 }
 impl InstrumentParsingStatus {
@@ -309,6 +350,7 @@ impl InstrumentParsingStatus {
             is_header_control: false,
             is_header_global: false,
             group_counter: None,
+            region_counter_in_group: None,
             region_counter: None,
         }
     }
@@ -316,6 +358,8 @@ impl InstrumentParsingStatus {
     /// A new group header appears
     ///
     pub fn new_group(&mut self) {
+        #[cfg(debug)]
+        println!("  status.new_group()");
         // ensure we are out of the <control> header
         self.is_header_control = false;
         // ensure we are out of the <global> header
@@ -329,6 +373,8 @@ impl InstrumentParsingStatus {
     /// A new region header appears
     ///
     pub fn new_region(&mut self) {
+        #[cfg(debug)]
+        println!("  status.new_region()");
         // ensure we are out of the <control> header
         self.is_header_control = false;
         // ensure we are out of the <global> header
@@ -375,17 +421,37 @@ impl InstrumentParsingStatus {
             Some(c) => self.region_counter = Some(c + 1),
             None => self.region_counter = Some(0),
         }
+        match self.region_counter_in_group {
+            Some(c) => self.region_counter_in_group = Some(c + 1),
+            None => self.region_counter_in_group = Some(0),
+        }
+        #[cfg(debug)]
+        println!(
+            "  status.region_increment() g{}→rig{} (r{})",
+            self.group_counter.unwrap(),
+            self.region_counter_in_group.unwrap(),
+            self.region_counter.unwrap()
+        );
     }
+
+    /// Resets the region counter for the group
     fn region_reset(&mut self) {
-        self.region_counter = None;
+        #[cfg(debug)]
+        println!("  status.region_reset()");
+        self.region_counter_in_group = None;
     }
 
     /// Increments the group counter
     fn group_increment(&mut self) {
-        match self.region_counter {
+        match self.group_counter {
             Some(c) => self.group_counter = Some(c + 1),
             None => self.group_counter = Some(0),
         }
+        #[cfg(debug)]
+        println!(
+            "  status.group_increment() (→g{})",
+            self.group_counter.unwrap()
+        );
     }
 
     /// Are there any groups already defined?
@@ -398,7 +464,7 @@ impl InstrumentParsingStatus {
 
     /// Are there any regions already defined for the current group?
     pub fn are_regions(&self) -> bool {
-        if self.region_counter == None {
+        if self.region_counter_in_group == None {
             return false;
         }
         true
