@@ -249,10 +249,14 @@ pub(crate) enum SfzToken {
 
     /// Parses an Opcode, including the value
     ///
-    /// Opcodes and assigned opcode values are separated by the equal to sign (=),
-    /// without spaces between the opcode and the sign.
+    /// Opcodes and assigned opcode values are separated by the equal-to sign
+    /// `=`, without spaces between the opcode and the sign.
     ///
-    #[regex("[a-zA-Z0-9_]+=.+", Opcode::parse_opcode)]
+    /// All opcodes can be in the same line, separated by spaces, except for
+    /// **sample**, which must not have any other opcode after it in the same
+    /// line, in order to recognize filenames with spaces.
+    #[regex("sample=.+", Opcode::parse_opcode)]
+    #[regex("[a-zA-Z0-9_]+=[\\w.]+", Opcode::parse_opcode)]
     Opcode(Opcode),
 
     #[regex(r"[ \t\n\f]+", logos::skip)]
@@ -354,12 +358,10 @@ mod tests_token {
         let mut lex = SfzToken::lexer(
             "<region>
 sample=MOHorn_mute_A#1_v1_1.wav
-lokey=46
-hikey=48
+lokey=46 hikey=48
 pitch_keycenter=46
-lovel=0
-hivel=62
-volume=17",
+lovel=0 hivel=62
+volume=2.0",
         );
 
         assert_eq!(lex.next(), Some(SfzToken::Header(Header::Region)));
@@ -371,12 +373,13 @@ volume=17",
                 "MOHorn_mute_A#1_v1_1.wav"
             ))))
         );
+        // recognize multiple opcodes in the same line
         assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::lokey(46))));
-        // assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::hikey(48))));
-        // assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::pitch_keycenter(46))));
-        // assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::lovel(0))));
-        // assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::hivel(62))));
-        // assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::volume(17.0))));
+        assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::hikey(48))));
+        assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::pitch_keycenter(46))));
+        assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::lovel(0))));
+        assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::hivel(62))));
+        assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::volume(2.0))));
     }
 }
 
