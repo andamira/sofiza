@@ -1,7 +1,7 @@
 [package]
 name = "sofiza"
 description = "SFZ format parser"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2018"
 authors = ["José Luis Cruz <joseluis@andamira.net>"]
 repository = "https://github.com/andamira/sofiza"
