@@ -6,12 +6,13 @@ use std::path::Path;
 
 use sofiza::Instrument;
 
-
 fn main() {
     let filepath = Path::new("instruments/Nylon Guitar.sfz");
 
-    let i = Instrument::from_file(filepath).expect("Couldn't parse the instrument. \
-        Please run the example from the examples/ directory");
+    let i = Instrument::from_file(filepath).expect(
+        "Couldn't parse the instrument. \
+        Please run the example from the examples/ directory",
+    );
 
     println!("{:#?}", i);
 

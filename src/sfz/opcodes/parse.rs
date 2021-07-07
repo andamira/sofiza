@@ -376,7 +376,10 @@ volume=2.0",
         // recognize multiple opcodes in the same line
         assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::lokey(46))));
         assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::hikey(48))));
-        assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::pitch_keycenter(46))));
+        assert_eq!(
+            lex.next(),
+            Some(SfzToken::Opcode(Opcode::pitch_keycenter(46)))
+        );
         assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::lovel(0))));
         assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::hivel(62))));
         assert_eq!(lex.next(), Some(SfzToken::Opcode(Opcode::volume(2.0))));
