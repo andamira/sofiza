@@ -7,12 +7,10 @@ authors = ["José Luis Cruz <joseluis@andamira.net>"]
 repository = "https://github.com/andamira/sofiza"
 license = "MIT/Apache-2.0"
 include = [
-    "src/*.rs",
-    "src/sfz/*.rs",
-    "src/sfz/opcodes/*.rs",
-    "src/sfz/opcodes/data/*.txt",
-    "src/utils/*.rs",
-    "Cargo.toml",
+	"/src/",
+	"/Cargo.toml",
+	"/LICENSE-*",
+	"/README.md"
 ]
 categories = ["parser-implementations", "multimedia::audio"]
 keywords = ["parser", "audio", "virtual", "music", "instrument"]
@@ -31,3 +29,6 @@ thiserror = "^1.0"
 
 [dev-dependencies]
 anyhow = "^1.0"
+
+[badges]
+maintenance = { status = "actively-developed" }
