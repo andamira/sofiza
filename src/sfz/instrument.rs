@@ -45,6 +45,12 @@ pub struct Instrument {
     last_header_created: Header,
 }
 
+impl Default for Instrument {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 // constructors:
 // - new
 // - from_file
@@ -107,7 +113,7 @@ impl Instrument {
         let mut status = InstrumentParsingStatus::init();
 
         // parser loop
-        let lex = SfzToken::lexer(&sfz);
+        let lex = SfzToken::lexer(sfz);
         for t in lex {
             match &t {
                 SfzToken::Header(h) => {
@@ -152,9 +158,8 @@ impl Instrument {
 
                     // an opcode for <control>
                     } else if status.is_header_control {
-                        match o {
-                            Opcode::default_path(p) => instrument.default_path.push(p),
-                            _ => (),
+                        if let Opcode::default_path(p) = o {
+                            instrument.default_path.push(p)
                         }
                     } else {
                         // an opcode for the <region>
@@ -199,7 +204,10 @@ impl Instrument {
     ///
     pub fn add_opcode(&mut self, opcode: &Opcode) -> Result<()> {
         match self.last_header_created {
-            Header::Global => Ok(self.add_opcode_global(opcode)),
+            Header::Global => {
+                self.add_opcode_global(opcode);
+                Ok(())
+            }
             Header::Group => self.add_opcode_to_group(opcode, self.groups() - 1),
             Header::Region => self.add_opcode_to_region(opcode, self.regions() - 1),
             _ => Err(Error::Generic),
@@ -329,7 +337,7 @@ impl Instrument {
     }
 
     // TODO:
-    pub fn groups_iter(&self) -> () {}
+    pub fn groups_iter(&self) {}
 }
 
 /// The current status of the parsing of the instrument

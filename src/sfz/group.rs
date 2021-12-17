@@ -1,4 +1,3 @@
-use std::collections::HashMap;
 use std::fmt::Debug;
 
 use crate::sfz::{Opcode, OpcodeMap};
@@ -8,7 +7,7 @@ use crate::sfz::{Opcode, OpcodeMap};
 /// A group is defined with the <group> opcode, and the parameters enumerated
 /// on it last till the next group opcode, or till the end of the file.
 ///
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct Group {
     /// This list of opcodes overwrites the default ones.
     pub opcodes: OpcodeMap,
@@ -19,10 +18,7 @@ pub struct Group {
 
 impl Group {
     pub fn new() -> Self {
-        Self {
-            opcodes: HashMap::new(),
-            label: String::new(),
-        }
+        Self::default()
     }
 
     pub fn add_opcode(&mut self, o: &Opcode) {

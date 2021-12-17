@@ -1,5 +1,3 @@
-use std::path::PathBuf;
-
 use logos::{Lexer, Logos};
 use regex::Regex;
 
@@ -36,57 +34,53 @@ impl Opcode {
         let mut remainder = String::new(); // the remainder opcode name after the current parameter
 
         // Tries to find numeric parameters embedded in the name
-        let lex_numbers = OpcodeParameter::lexer(&name);
+        let lex_numbers = OpcodeParameter::lexer(name);
         for (n, span) in lex_numbers.spanned() {
-            match &n {
-                // If a parameter is found
-                OpcodeParameter::Parameter(p) => {
-                    // constructs the new name of the opcode,
-                    // with the numeric parameters being substituted by
-                    // the N, X, Y chars, in that order.
+            // If a parameter is found
+            if let OpcodeParameter::Parameter(p) = &n {
+                // constructs the new name of the opcode,
+                // with the numeric parameters being substituted by
+                // the N, X, Y chars, in that order.
 
-                    let split_idx = span.start; // the index of current parameter in original name
+                let split_idx = span.start; // the index of current parameter in original name
 
-                    let (first, last) = name.split_at(split_idx);
-                    remainder = last[span.end - span.start..].to_string();
+                let (first, last) = name.split_at(split_idx);
+                remainder = last[span.end - span.start..].to_string();
 
-                    // first handle the special case of 4 opcodes with an "NN" parameter:
-                    // (varNN_mod, varNN_onccX, varNN_curveccX, varNN_target)
-                    if par_num == 0 && Regex::new(r"^var").unwrap().is_match(&name) {
-                        new_name += &format!("{}NN", &first[previous_span_end..]);
+                // first handle the special case of 4 opcodes with an "NN" parameter:
+                // (varNN_mod, varNN_onccX, varNN_curveccX, varNN_target)
+                if par_num == 0 && Regex::new(r"^var").unwrap().is_match(name) {
+                    new_name += &format!("{}NN", &first[previous_span_end..]);
 
-                    // then handle the rest of the cases
-                    } else {
-                        new_name +=
-                            &format!("{}{}", &first[previous_span_end..], par_char[par_num]);
-                    }
-
-                    //println!("{} ({})  remainder: {}", &new_name, previous_span_end, remainder); // DEBUG
-
-                    // TODO: check for numeric boundaries
-                    //
-                    // TODO NOTE
-                    // 1. all opcodes ending in ccN has N = 0..=127 (or ccX when N is already used)
-                    //  (except some sfz2 and aria extensions, see:
-                    //  https://sfzformat.com/extensions/midi_ccs
-                    //
-                    // 2. each of these has N = 1..=3 (and X = 0..=127)
-                    //   eqN_bw
-                    //   eqN_bwccX
-                    //   eqN_freq
-                    //   eqN_freqccX
-                    //   eqN_vel2freq
-                    //   eqN_gain
-                    //   eqN_gainccX
-                    //   eqN_vel2gain
-
-                    // Stores the numeric parameter
-                    params.push(*p as u8);
-
-                    par_num += 1;
-                    previous_span_end = span.end;
+                // then handle the rest of the cases
+                } else {
+                    new_name += &format!("{}{}", &first[previous_span_end..], par_char[par_num]);
                 }
-                _ => (),
+
+                //println!("{} ({})  remainder: {}", &new_name, previous_span_end, remainder); // DEBUG
+
+                // TODO: check for numeric boundaries
+                //
+                // TODO NOTE
+                // 1. all opcodes ending in ccN has N = 0..=127 (or ccX when N is already used)
+                //  (except some sfz2 and aria extensions, see:
+                //  https://sfzformat.com/extensions/midi_ccs
+                //
+                // 2. each of these has N = 1..=3 (and X = 0..=127)
+                //   eqN_bw
+                //   eqN_bwccX
+                //   eqN_freq
+                //   eqN_freqccX
+                //   eqN_vel2freq
+                //   eqN_gain
+                //   eqN_gainccX
+                //   eqN_vel2gain
+
+                // Stores the numeric parameter
+                params.push(*p as u8);
+
+                par_num += 1;
+                previous_span_end = span.end;
             }
         }
 
@@ -95,7 +89,7 @@ impl Opcode {
             new_name = name.to_string();
 
         // In case there's a remainder after the last parameter, append it
-        } else if remainder.len() > 0 {
+        } else if !remainder.is_empty() {
             new_name += &remainder;
         }
 
@@ -140,7 +134,7 @@ impl Opcode {
 
         let slice = lex.slice();
 
-        let kv: Vec<&str> = slice.splitn(2, "=").collect();
+        let kv: Vec<&str> = slice.splitn(2, '=').collect();
         let (opcode, value) = (kv[0], kv[1]);
         let value = value.trim(); // remove possible remaining CRLF chars
 
@@ -206,9 +200,7 @@ impl Opcode {
                 utils::check_u16_between(value, 0, 9600).map(Opcode::pitch_random)
             }
             ("rt_decay", _) => utils::check_f32_between(value, 0., 200.).map(Opcode::rt_decay),
-            ("sample", _) => Some(Opcode::sample(PathBuf::from(utils::fix_path_separators(
-                value,
-            )))),
+            ("sample", _) => Some(Opcode::sample(utils::fix_path_separators(value))),
             ("seq_lenght", _) => utils::check_u8_between(value, 1, 100).map(Opcode::seq_length),
             ("seq_position", _) => utils::check_u8_between(value, 1, 100).map(Opcode::seq_position),
             ("trigger", _) => trigger::from_str(value).map(Opcode::trigger),
@@ -298,6 +290,7 @@ pub(crate) enum OpcodeParameter {
 mod tests_opcodes {
     use super::*;
     use logos::Logos;
+    use std::path::PathBuf;
 
     #[test]
     fn test_opcode_ampeg_attack() {

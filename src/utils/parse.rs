@@ -3,7 +3,7 @@
 pub(crate) fn check_f32(value: &str) -> f32 {
     let num: f32 = value
         .parse::<f32>()
-        .expect(&format!("ERROR: `{}` is not a valid f32 number", value));
+        .unwrap_or_else(|_| panic!("ERROR: `{}` is not a valid f32 number", value));
     num
 }
 
@@ -26,7 +26,7 @@ pub(crate) fn check_f32_between(value: &str, min: f32, max: f32) -> Option<f32> 
 pub(crate) fn check_u8(value: &str) -> u8 {
     let num: u8 = value
         .parse::<u8>()
-        .expect(&format!("ERROR: `{}` is not a valid i8 number", value));
+        .unwrap_or_else(|_| panic!("ERROR: `{}` is not a valid i8 number", value));
     num
 }
 
@@ -35,7 +35,7 @@ pub(crate) fn check_u8(value: &str) -> u8 {
 pub(crate) fn check_u8_between(value: &str, min: u8, max: u8) -> Option<u8> {
     let num = check_u8(value);
     if num >= min && num <= max {
-        return Some(num);
+        Some(num)
     } else {
         None
     }
@@ -46,7 +46,7 @@ pub(crate) fn check_u8_between(value: &str, min: u8, max: u8) -> Option<u8> {
 pub(crate) fn check_i8(value: &str) -> i8 {
     let num: i8 = value
         .parse::<i8>()
-        .expect(&format!("ERROR: `{}` is not a valid i8 number", value));
+        .unwrap_or_else(|_| panic!("ERROR: `{}` is not a valid i8 number", value));
     num
 }
 
@@ -55,7 +55,7 @@ pub(crate) fn check_i8(value: &str) -> i8 {
 pub(crate) fn check_i8_between(value: &str, min: i8, max: i8) -> Option<i8> {
     let num = check_i8(value);
     if num >= min && num <= max {
-        return Some(num);
+        Some(num)
     } else {
         None
     }
@@ -66,7 +66,7 @@ pub(crate) fn check_i8_between(value: &str, min: i8, max: i8) -> Option<i8> {
 pub(crate) fn check_i16(value: &str) -> i16 {
     let num: i16 = value
         .parse::<i16>()
-        .expect(&format!("ERROR: `{}` is not a valid i16 number", value));
+        .unwrap_or_else(|_| panic!("ERROR: `{}` is not a valid i16 number", value));
     num
 }
 
@@ -75,7 +75,7 @@ pub(crate) fn check_i16(value: &str) -> i16 {
 pub(crate) fn check_i16_between(value: &str, min: i16, max: i16) -> Option<i16> {
     let num = check_i16(value);
     if num >= min && num <= max {
-        return Some(num);
+        Some(num)
     } else {
         None
     }
@@ -86,7 +86,7 @@ pub(crate) fn check_i16_between(value: &str, min: i16, max: i16) -> Option<i16> 
 pub(crate) fn check_u16(value: &str) -> u16 {
     let num: u16 = value
         .parse::<u16>()
-        .expect(&format!("ERROR: `{}` is not a valid u16 number", value));
+        .unwrap_or_else(|_| panic!("ERROR: `{}` is not a valid u16 number", value));
     num
 }
 
@@ -95,7 +95,7 @@ pub(crate) fn check_u16(value: &str) -> u16 {
 pub(crate) fn check_u16_between(value: &str, min: u16, max: u16) -> Option<u16> {
     let num = check_u16(value);
     if num >= min && num <= max {
-        return Some(num);
+        Some(num)
     } else {
         None
     }
@@ -106,7 +106,7 @@ pub(crate) fn check_u16_between(value: &str, min: u16, max: u16) -> Option<u16> 
 pub(crate) fn check_u32(value: &str) -> u32 {
     let num: u32 = value
         .parse::<u32>()
-        .expect(&format!("ERROR: `{}` is not a valid u32 number", value));
+        .unwrap_or_else(|_| panic!("ERROR: `{}` is not a valid u32 number", value));
     num
 }
 
@@ -115,7 +115,7 @@ pub(crate) fn check_u32(value: &str) -> u32 {
 pub(crate) fn check_u32_between(value: &str, min: u32, max: u32) -> Option<u32> {
     let num = check_u32(value);
     if num >= min && num <= max {
-        return Some(num);
+        Some(num)
     } else {
         None
     }
