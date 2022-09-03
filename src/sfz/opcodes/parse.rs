@@ -244,10 +244,9 @@ pub(crate) enum SfzToken {
     /// Opcodes and assigned opcode values are separated by the equal-to sign
     /// `=`, without spaces between the opcode and the sign.
     ///
-    /// All opcodes can be in the same line, separated by spaces, except for
-    /// **sample**, which must not have any other opcode after it in the same
-    /// line, in order to recognize filenames with spaces.
-    #[regex("sample=.+", Opcode::parse_opcode)]
+    /// All opcodes can be in the same line, separated by spaces.
+    /// **sample** uses a special regex to support filenames with spaces.
+    #[regex("sample=[^.]+\\.\\S+", Opcode::parse_opcode)]
     #[regex("[a-zA-Z0-9_]+=[\\w.]+", Opcode::parse_opcode)]
     Opcode(Opcode),
 
@@ -350,8 +349,7 @@ mod tests_token {
     fn test_sfz_simple() {
         let mut lex = SfzToken::lexer(
             "<region>
-sample=MOHorn_mute_A#1_v1_1.wav
-lokey=46 hikey=48
+sample=with space/MOHorn_mute_A#1_v1_1.wav lokey=46 hikey=48
 pitch_keycenter=46
 lovel=0 hivel=62
 volume=2.0",
@@ -363,7 +361,7 @@ volume=2.0",
         assert_eq!(
             lex.next(),
             Some(SfzToken::Opcode(Opcode::sample(PathBuf::from(
-                "MOHorn_mute_A#1_v1_1.wav"
+                "with space/MOHorn_mute_A#1_v1_1.wav"
             ))))
         );
         // recognize multiple opcodes in the same line
