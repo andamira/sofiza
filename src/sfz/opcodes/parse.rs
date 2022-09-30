@@ -177,11 +177,11 @@ impl Opcode {
                 utils::check_i16_between(value, -9600, 9600).map(Opcode::fil_veltrack)
             }
             // NOTE: hikey v2 accepts i8, from -1:
-            ("hikey", _) => utils::check_u8_between(value, 0, 127).map(Opcode::hikey),
+            ("hikey", _) => utils::check_midi_note(value).map(Opcode::hikey),
             ("hivel", _) => utils::check_u8_between(value, 0, 127).map(Opcode::hivel),
             ("hirand", _) => utils::check_f32_between(value, 0., 1.).map(Opcode::hirand),
             // NOTE: lokey v2 accepts i8, from -1:
-            ("lokey", _) => utils::check_u8_between(value, 0, 127).map(Opcode::lokey),
+            ("lokey", _) => utils::check_midi_note(value).map(Opcode::lokey),
             ("lovel", _) => utils::check_u8_between(value, 0, 127).map(Opcode::lovel),
             ("loop_mode", _) => loop_mode::from_str(value).map(Opcode::loop_mode),
             ("lorand", _) => utils::check_f32_between(value, 0., 1.).map(Opcode::lorand),
@@ -191,7 +191,7 @@ impl Opcode {
             ("on_hiccN", _) => utils::check_i8_between(value, 0, 127).map(Opcode::on_hiccN),
             ("pan", _) => utils::check_f32_between(value, 0., 100.).map(Opcode::pan),
             ("pitch_keycenter", _) => {
-                utils::check_u8_between(value, 0, 127).map(Opcode::pitch_keycenter)
+                utils::check_midi_note(value).map(Opcode::pitch_keycenter)
             }
             ("pitch_keytrack", _) => {
                 utils::check_i16_between(value, -1200, 1200).map(Opcode::pitch_keytrack)
@@ -204,9 +204,9 @@ impl Opcode {
             ("seq_lenght", _) => utils::check_u8_between(value, 1, 100).map(Opcode::seq_length),
             ("seq_position", _) => utils::check_u8_between(value, 1, 100).map(Opcode::seq_position),
             ("trigger", _) => trigger::from_str(value).map(Opcode::trigger),
-            ("sw_hikey", _) => utils::check_u8_between(value, 0, 127).map(Opcode::sw_hikey),
+            ("sw_hikey", _) => utils::check_midi_note(value).map(Opcode::sw_hikey),
             ("sw_last", _) => utils::check_u8_between(value, 0, 127).map(Opcode::sw_last),
-            ("sw_lokey", _) => utils::check_u8_between(value, 0, 127).map(Opcode::sw_lokey),
+            ("sw_lokey", _) => utils::check_midi_note(value).map(Opcode::sw_lokey),
             ("tune", _) => utils::check_i8_between(value, -100, 100).map(Opcode::tune),
             ("volume", _) => utils::check_f32_between(value, -144., 6.).map(Opcode::volume),
             ("xfin_hivel", _) => utils::check_u8_between(value, 0, 127).map(Opcode::xfin_hivel),
@@ -351,7 +351,7 @@ mod tests_token {
         let mut lex = SfzToken::lexer(
             "<region>
 sample=MOHorn_mute_A#1_v1_1.wav
-lokey=46 hikey=48
+lokey=46 hikey=C3
 pitch_keycenter=46
 lovel=0 hivel=62
 volume=2.0",
