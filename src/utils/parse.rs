@@ -1,3 +1,5 @@
+use regex::Regex;
+
 /// Receive a string, try to parse it as f32
 ///
 pub(crate) fn check_f32(value: &str) -> f32 {
@@ -26,7 +28,7 @@ pub(crate) fn check_f32_between(value: &str, min: f32, max: f32) -> Option<f32> 
 pub(crate) fn check_u8(value: &str) -> u8 {
     let num: u8 = value
         .parse::<u8>()
-        .unwrap_or_else(|_| panic!("ERROR: `{}` is not a valid i8 number", value));
+        .unwrap_or_else(|_| panic!("ERROR: `{}` is not a valid u8 number", value));
     num
 }
 
@@ -121,6 +123,44 @@ pub(crate) fn check_u32_between(value: &str, min: u32, max: u32) -> Option<u32> 
     }
 }
 
+/// Receive a string, try to parse it as MIDI note (see "key" opcodes)
+///
+pub(crate) fn check_midi_note(value: &str) -> Option<u8> {
+    let note_regex = Regex::new(r"([a-gA-G][bB#]?)(-?\d+)").unwrap();
+    if let Some(captures) = note_regex.captures(value) {
+        // encoded as text
+        let note_semitones = match captures[1].to_lowercase().as_str() {
+            "c" => 0,
+            "c#" => 1,
+            "db" => 1,
+            "d" => 2,
+            "d#" => 3,
+            "eb" => 3,
+            "e" => 4,
+            "f" => 5,
+            "f#" => 6,
+            "gb" => 6,
+            "g" => 7,
+            "g#" => 8,
+            "ab" => 8,
+            "a" => 9,
+            "a#" => 10,
+            "bb" => 10,
+            "b" => 11,
+            _ => panic!("ERROR: `{}` is not a valid note", &captures[1]),
+        };
+        let octave = captures[2]
+            .parse::<i8>()
+            .unwrap_or_else(|_| panic!("ERROR: `{}` is not a valid i8 number", &captures[2]));
+        let midi_note = u8::try_from(12 + note_semitones + octave * 12)
+            .unwrap_or_else(|_| panic!("ERROR: `{}` is outside of MIDI note range", value));
+        Some(midi_note)
+    } else {
+        // encoded as u8
+        check_u8_between(value, 0, 127)
+    }
+}
+
 /*
 // IDEA:WIP create wrapper macro
 // check!(value, f32, 0.1, 100.)
@@ -150,3 +190,28 @@ macro_rules! check {
 
 // impl<T> Debug for <T as FromStr>::Err {
 // }
+
+#[cfg(test)]
+mod tests_parse {
+    use super::check_midi_note;
+
+    #[test]
+    fn test_parse_valid_midi_notes() {
+        assert_eq!(check_midi_note("0"), Some(0));
+        assert_eq!(check_midi_note("125"), Some(125));
+        assert_eq!(check_midi_note("C4"), Some(60));
+        assert_eq!(check_midi_note("Bb7"), Some(106));
+        assert_eq!(check_midi_note("g#0"), Some(20));
+        assert_eq!(check_midi_note("c#-1"), Some(1));
+    }
+
+    #[test]
+    fn test_parse_invalid_midi_notes() {
+        assert_eq!(check_midi_note("128"), None);
+        assert!(std::panic::catch_unwind(|| check_midi_note("-1")).is_err());
+        assert!(std::panic::catch_unwind(|| check_midi_note("c")).is_err());
+        assert!(std::panic::catch_unwind(|| check_midi_note("de#2")).is_err());
+        assert!(std::panic::catch_unwind(|| check_midi_note("d#-9")).is_err());
+        assert!(std::panic::catch_unwind(|| check_midi_note("q#2")).is_err());
+    }
+}
