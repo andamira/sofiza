@@ -1,6 +1,8 @@
 use logos::{Lexer, Logos};
 use regex::Regex;
 
+use log::trace;
+
 use crate::sfz::types::{fil_type, loop_mode, trigger, MAX_SAMPLE_RATE};
 use crate::sfz::{Header, Opcode};
 use crate::utils;
@@ -57,7 +59,12 @@ impl Opcode {
                     new_name += &format!("{}{}", &first[previous_span_end..], par_char[par_num]);
                 }
 
-                //println!("{} ({})  remainder: {}", &new_name, previous_span_end, remainder); // DEBUG
+                trace!(
+                    "{} ({})  remainder: {}",
+                    &new_name,
+                    previous_span_end,
+                    remainder
+                );
 
                 // TODO: check for numeric boundaries
                 //
@@ -93,7 +100,7 @@ impl Opcode {
             new_name += &remainder;
         }
 
-        //println!("NAME: {}\nPROCESSED: {:?}\n", name, (&new_name, &params)); // DEBUG
+        trace!("NAME: {}\nPROCESSED: {:?}\n", name, (&new_name, &params));
         (new_name, params)
     }
 
@@ -457,15 +464,15 @@ mod tests_parameters {
         opcodes_params_2 = opcodes_params_2.trim().to_string();
         opcodes_params_3 = opcodes_params_3.trim().to_string();
 
-        // DEBUG
-        // println!("total: {}\nwith params: {} (1={}, 2={}, 3={}), no params: {}",
-        //     opcodes_total_count,
-        //     opcodes_params_count,
-        //     opcodes_params_1_count,
-        //     opcodes_params_2_count,
-        //     opcodes_params_3_count,
-        //     opcodes_no_params_count,
-        // );
+        trace!(
+            "total: {}\nwith params: {} (1={}, 2={}, 3={}), no params: {}",
+            opcodes_total_count,
+            opcodes_params_count,
+            opcodes_params_1_count,
+            opcodes_params_2_count,
+            opcodes_params_3_count,
+            opcodes_no_params_count,
+        );
 
         // Check the counting checks up
         assert_eq!(

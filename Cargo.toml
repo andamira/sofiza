@@ -21,13 +21,14 @@ publish = true
 logos = "0.12.1"
 regex = "1"
 
-phf = { version = "^0.11.1", features = ["macros"] }
+phf = { version = "0.11.1", features = ["macros"] }
 
 # change for the `!` type when it stabilizes:
 # https://github.com/rust-lang/rust/issues/35121
 never = "0.1"
 
 thiserror = "^1.0"
+log = "0.4.17"
 
 [dev-dependencies]
 anyhow = "^1.0"
