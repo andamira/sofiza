@@ -20,7 +20,7 @@ use crate::sfz::{Opcode, OpcodeMap};
 /// All Input Controls defined in a region act using the AND boolean operator.
 /// Consequently, all conditions must be matched for the region to play.
 ///
-#[derive(Debug, Default)]
+#[derive(Clone, Debug, Default)]
 pub struct Region {
     /// The opcodes of this group are applied and will override the defaults.
     pub group: Option<usize>,
@@ -30,10 +30,12 @@ pub struct Region {
 }
 
 impl Region {
+    /// New region.
     pub fn new() -> Self {
         Self::default()
     }
 
+    /// New region with some group.
     // FIXME (add group at posteriori)
     pub fn with_group(group: usize) -> Self {
         Self {

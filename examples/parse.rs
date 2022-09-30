@@ -14,6 +14,11 @@ fn main() {
         Please run the example from the examples/ directory",
     );
 
+    // for region in &i.regions {
+    //     println!("{:?}", region);
+    // }
+
+
     println!("{:#?}", i);
 
     println!("groups: {}\nregions: {}", i.groups(), i.regions());

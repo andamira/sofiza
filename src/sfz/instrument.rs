@@ -22,7 +22,7 @@ use crate::{
 /// International Pitch Notation (IPN) convention. According to this rules,
 /// middle C in the keyboard is C4 and the MIDI note number 60.
 ///
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub struct Instrument {
     /// The default opcodes for this instrument.
     pub global: OpcodeMap,
@@ -341,7 +341,7 @@ impl Instrument {
 }
 
 /// The current status of the parsing of the instrument
-#[derive(Debug)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 struct InstrumentParsingStatus {
     is_header_control: bool,
     is_header_global: bool,

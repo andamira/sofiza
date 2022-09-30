@@ -9,7 +9,7 @@ use crate::sfz::SfzToken;
 ///
 /// [sfzformat.com/headers/](https://sfzformat.com/headers/)
 
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Header {
     // sfz v1 headers
     /// The basic component of an instrument. An instrument is defined by one or more regions.

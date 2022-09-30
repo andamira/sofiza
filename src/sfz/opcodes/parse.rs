@@ -172,7 +172,7 @@ impl Opcode {
             ("cutoff", _) => {
                 utils::check_f32_between(value, 0., MAX_SAMPLE_RATE).map(Opcode::cutoff)
             }
-            ("fil_type", _) => fil_type::from_str(value).map(Opcode::fil_type),
+            ("fil_type", _) => fil_type::from_name(value).map(Opcode::fil_type),
             ("fil_veltrack", _) => {
                 utils::check_i16_between(value, -9600, 9600).map(Opcode::fil_veltrack)
             }
@@ -183,16 +183,14 @@ impl Opcode {
             // NOTE: lokey v2 accepts i8, from -1:
             ("lokey", _) => utils::check_midi_note(value).map(Opcode::lokey),
             ("lovel", _) => utils::check_u8_between(value, 0, 127).map(Opcode::lovel),
-            ("loop_mode", _) => loop_mode::from_str(value).map(Opcode::loop_mode),
+            ("loop_mode", _) => loop_mode::from_name(value).map(Opcode::loop_mode),
             ("lorand", _) => utils::check_f32_between(value, 0., 1.).map(Opcode::lorand),
             ("off_by", _) => utils::check_u32_between(value, 0, u32::MAX).map(Opcode::off_by),
             ("offset", _) => utils::check_u32_between(value, 0, u32::MAX).map(Opcode::offset),
             ("on_loccN", _) => utils::check_i8_between(value, 0, 127).map(Opcode::on_loccN),
             ("on_hiccN", _) => utils::check_i8_between(value, 0, 127).map(Opcode::on_hiccN),
             ("pan", _) => utils::check_f32_between(value, 0., 100.).map(Opcode::pan),
-            ("pitch_keycenter", _) => {
-                utils::check_midi_note(value).map(Opcode::pitch_keycenter)
-            }
+            ("pitch_keycenter", _) => utils::check_midi_note(value).map(Opcode::pitch_keycenter),
             ("pitch_keytrack", _) => {
                 utils::check_i16_between(value, -1200, 1200).map(Opcode::pitch_keytrack)
             }
@@ -203,7 +201,7 @@ impl Opcode {
             ("sample", _) => Some(Opcode::sample(utils::fix_path_separators(value))),
             ("seq_lenght", _) => utils::check_u8_between(value, 1, 100).map(Opcode::seq_length),
             ("seq_position", _) => utils::check_u8_between(value, 1, 100).map(Opcode::seq_position),
-            ("trigger", _) => trigger::from_str(value).map(Opcode::trigger),
+            ("trigger", _) => trigger::from_name(value).map(Opcode::trigger),
             ("sw_hikey", _) => utils::check_midi_note(value).map(Opcode::sw_hikey),
             ("sw_last", _) => utils::check_u8_between(value, 0, 127).map(Opcode::sw_last),
             ("sw_lokey", _) => utils::check_midi_note(value).map(Opcode::sw_lokey),
@@ -232,7 +230,7 @@ impl Opcode {
 
 /// Token for parsing SFZ format elements like headers and tokens
 ///
-#[derive(Logos, Debug, PartialEq)]
+#[derive(Logos, Clone, Debug, PartialEq)]
 pub(crate) enum SfzToken {
     /// Parses a Header
     ///
@@ -266,7 +264,7 @@ pub(crate) enum SfzToken {
 /// Some opcode names contains numbers that must not be interpreted as parameters.
 /// It makes sure to filter out false positives,
 /// as parameters,
-#[derive(Logos, Debug, PartialEq)]
+#[derive(Logos, Clone, Debug, PartialEq)]
 pub(crate) enum OpcodeParameter {
     /// Skip numbers that must not be recognized as parameters,
     /// since they are part of the opcode's name.

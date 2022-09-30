@@ -26,7 +26,7 @@ use crate::sfz::types::{
 ///  - [Cakewalk Extensions Opcodes](https://sfzformat.com/extensions/cakewalk/)
 ///
 #[allow(non_camel_case_types)]
-#[derive(Debug, PartialEq, Clone)]
+#[derive(Clone, Debug, PartialEq)]
 pub enum Opcode {
     // sfz v1 opcodes -----------------------------------------------------------
     // https://sfzformat.com/misc/sfz2

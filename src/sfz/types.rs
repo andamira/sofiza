@@ -22,7 +22,7 @@ pub const MAX_SAMPLE_RATE: f32 = 384_000.0;
 
 /// All the possible types allowed in an Opcode
 #[allow(non_camel_case_types)]
-#[derive(Debug, Clone)]
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub enum OpcodeType {
     i8(Option<i8>),
     u8(Option<u8>),
@@ -43,17 +43,41 @@ pub type OpcodeMap = HashMap<String, Opcode>;
 /// Allows playing samples with loops defined in the unlooped mode.
 ///
 /// - info: [loop_mode](https://sfzformat.com/opcodes/loop_mode)
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[allow(non_camel_case_types)]
 pub enum loop_mode {
+    /// no looping will be performed. Sample will play straight from start to end,
+    /// or until note off, whatever reaches first.
+    ///
+    /// This is the default.
     no_loop,
+
+    /// sample will play from start to end, ignoring note off. This is commonly
+    /// used for drums. This mode is engaged automatically if the count opcode
+    /// is defined.
     one_shot,
+
+    /// once the player reaches sample loop point, the loop will play until note
+    /// expiration. This includes looping during the release phase.
     loop_continuous,
+
+    /// the player will play the loop while the note is held, by keeping it
+    /// depressed or by using the sustain pedal (CC64). During the release phase,
+    /// there’s no looping.
     loop_sustain,
 }
+
+// IMPROVE: `no_loop` for samples without a loop defined,
+// `loop_continuous` for samples with defined loop(s).
+impl Default for loop_mode {
+    fn default() -> loop_mode {
+        Self::no_loop
+    }
+}
+
 impl loop_mode {
     /// Constructor from the variant name, as a string
-    pub fn from_str(name: &str) -> Option<Self> {
+    pub fn from_name(name: &str) -> Option<Self> {
         match name {
             "no_loop" => Some(Self::no_loop),
             "one_shot" => Some(Self::one_shot),
@@ -67,18 +91,38 @@ impl loop_mode {
 /// Sets the trigger which will be used for the sample to play.
 ///
 /// - info: [trigger](https://sfzformat.com/opcodes/trigger)
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[allow(non_camel_case_types)]
 pub enum trigger {
+    /// (Default): Region will play on note-on.
     attack,
+
+    /// Region will play on note-off or sustain pedal off. The velocity used to
+    /// play the note-off sample is the velocity value of the corresponding
+    /// (previous) note-on message.
     release,
+
+    /// Region will play on note-on, but if there’s no other note going on
+    /// (comoonly used for or first note in a legato phrase).
     first,
+
+    /// Region will play on note-on, but only if there’s a note going on
+    /// (notes after first note in a legato phrase).
     legato,
+
+    /// Region will play on note-off. Ignores sustain pedal.
     release_key, // aria
 }
+
+impl Default for trigger {
+    fn default() -> trigger {
+        Self::attack
+    }
+}
+
 impl trigger {
     /// Constructor from the variant name, as a string
-    pub fn from_str(name: &str) -> Option<Self> {
+    pub fn from_name(name: &str) -> Option<Self> {
         match name {
             "attack" => Some(Self::attack),
             "release" => Some(Self::release),
@@ -93,7 +137,7 @@ impl trigger {
 /// Allows you to choose which type of filter you use if not specified
 ///
 /// - info: [fil_type](https://sfzformat.com/opcodes/fil_type)
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[allow(non_camel_case_types)]
 pub enum fil_type {
     /// One-pole low pass filter (6dB/octave)
@@ -107,6 +151,8 @@ pub enum fil_type {
     hpf_1p,
 
     /// Two-pole low pass filter (12dB/octave)
+    ///
+    /// This is the default.
     ///
     /// - version: v1
     lpf_2p,
@@ -211,9 +257,16 @@ pub enum fil_type {
     /// - version: ARIA
     peq,
 }
+
+impl Default for fil_type {
+    fn default() -> fil_type {
+        Self::lpf_2p
+    }
+}
+
 impl fil_type {
     /// Constructor from the variant name, as a string
-    pub fn from_str(name: &str) -> Option<Self> {
+    pub fn from_name(name: &str) -> Option<Self> {
         match name {
             "lpf_1p" => Some(Self::lpf_1p),
             "hpf_1p" => Some(Self::hpf_1p),
