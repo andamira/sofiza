@@ -22,7 +22,7 @@ pub const MAX_SAMPLE_RATE: f32 = 384_000.0;
 
 /// All the possible types allowed in an Opcode
 #[allow(non_camel_case_types)]
-#[derive(Clone, Debug, PartialEq, Eq)]
+#[derive(Clone, Debug, PartialEq)]
 pub enum OpcodeType {
     i8(Option<i8>),
     u8(Option<u8>),
